@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/igaray/.config'
+let g:netrw_dirhist_2='/home/igaray/windows/Users/aki/Pictures/images sorted/art/concept art/scifi'
+let g:netrw_dirhist_3='/home/igaray/Desktop/compiler/compiler/src/tests_parser'
+let g:netrw_dirhist_4='/home/igaray/.git'
+let g:netrw_dirhist_5='/home/igaray/Music/sorted/AUDIOBOOKS/Gil Fronsdal - Introduction to Meditation'
+let g:netrw_dirhist_6='/home/igaray/dotfiles/.git'
+let g:netrw_dirhist_7='/home/igaray/tera/no_copy/video/technical/c'
+let g:netrw_dirhist_8='/home/igaray/Documents/personal/projects-code/mmasenv/3rdprty/sphere tessellation/geotecsim'
+let g:netrw_dirhist_9='/Users/inaki/Documents/itweet/test'
