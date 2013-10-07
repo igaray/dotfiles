@@ -1,0 +1,12 @@
+
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+COMPLETION_WAITING_DOTS="true"
+
+autoload -U compinit promptinit
+compinit
+promptinit
+ 
+# This will set the default prompt to the walters theme
+#prompt walters
