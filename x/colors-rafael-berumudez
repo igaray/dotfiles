@@ -1,0 +1,21 @@
+!{{{ rb's colorscheme
+!*foreground:    #dcdccc
+!*background:    #696969
+!*color0:        #3a3a3a
+!*color8:        #242421
+!*color1:        #d19485
+!*color9:        #ab716d
+!*color2:        #a0a57e
+!*color10:       #7f8264
+!*color3:        #efdcbc
+!*color11:       #c3bf9f
+!*color4:        #98a1b9
+!*color12:       #465C80
+!*color5:        #d7afaf
+!*color13:       #d78787
+!*color6:        #98b9b1
+!*color14:       #769293
+!*color7:        #d7d7d7
+!*color15:       #91969b
+!}}}
+

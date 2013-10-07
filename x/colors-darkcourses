@@ -1,0 +1,25 @@
+!{{{ darkcourses by bohoomil (once upon a time based on zenburn...)
+*fadeColor:             #002b36
+*background:            #bcbcbc
+*foreground:            #969696
+*cursorColor:           #4a574d
+*pointerColorBackground:#586e75
+*pointerColorForeground:#93a1a1
+!*color0:                #141414
+*color0:                #000000
+*color1:                #734545
+*color2:                #4A574D
+*color3:                #808045
+*color4:                #506070
+*color5:                #8C6981
+*color6:                #588385
+*color7:                #bdbdbd
+*color8:                #7e7c7e
+*color9:                #BF5F5F
+*color10:               #749174
+*color11:               #BDA45A
+*color12:               #768EA6
+*color13:               #bf7e9d
+*color14:               #6FBABD
+*color15:               #dcdccc
+!}}}
