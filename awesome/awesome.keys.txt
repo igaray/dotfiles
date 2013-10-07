@@ -1,0 +1,27 @@
+WINDOW MANAGER CONTROL                      CLIENTS
+WK CTRL R   : restart awesome               WK SHFT R : redraw focused window 
+WK SHFT Q   : quit awesome                  WK M      : maximize client
+WK R        : run prompt                    WK F      : set client fullscreen
+WK X        : run lua code prompt           WK SHFT C : kill focused client
+WK RET      : spawn terminal                WK T      : mark a client
+WK W        : open main menu
+
+LAYOUT MODIFICATION                         NAVIGATION
+WK SHFT J   : switch client w/ next client  WK J          : focus next client
+WK SHFT K   : switch client w/ prev client  WK K          : focus prev client
+WK O        : send client to next screen    WK U          : focus first urgent client
+WK H        : decrease master width by 5%   WK RIGHT      : view next tag
+WK L        : increase master width by 5%   WK LEFT       : view prev tag
+WK SHFT H   : increase # of masters by 1    WK 1-9        : switch to tag 1-9
+WK SHFT L   : decrease # of masters by 1    WK CTRL RIGHT : focus next screen
+WK CTRL H   : increase # of columns by 1    WK CTRL LEFT  : focus prev screen           
+WK CTRL L   : decrease # of columns by 1    WK ESC        : focus prev selected tag set 
+WK      SPC : switch to next layout         
+WK SHFT SPC : switch to prev layout         
+WK CTRL SPC : toggle client floating status
+WK CTRL RET : swap focused client with master
+
+WK      CTRL 1-9 : toggle tag view
+WK SHFT      1-9 : tag client with tag
+WK SHFT CTRL 1-9 : toggle tag on client
+WK F1-F9         : tag marked clients with tag
