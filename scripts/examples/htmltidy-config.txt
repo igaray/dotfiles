@@ -1,0 +1,34 @@
+// sample config file for HTML tidy
+anchor-as-name: no
+bare: yes
+clean: yes
+doctype: omit
+drop-empty-paras: yes
+drop-font-tags: yes
+drop-proprietary-attributes: yes
+enclose-block-text: no
+enclose-text: no
+hide-comments: yes
+merge-divs: yes
+merge-spans: yes
+indent: no
+indent-spaces: 2
+wrap: 0
+markup: yes
+output-xml: no
+input-xml: no
+show-warnings: yes
+numeric-entities: yes
+quote-marks: yes
+quote-nbsp: yes
+quote-ampersand: no
+break-before-br: no
+uppercase-tags: no
+uppercase-attributes: no
+char-encoding: latin1
+new-inline-tags: cfif, cfelse, math, mroot, mrow, mi, mn, mo, msqrt, mfrac, msubsup, munderover, munder, mover, mmultiscripts, msup, msub, mtext,  mprescripts, mtable, mtr, mtd, mth
+new-blocklevel-tags: cfoutput, cfquery
+new-empty-tags: cfelse
+preserve-entities: yes
+show-body-only: yes
+ascii-chars: no
