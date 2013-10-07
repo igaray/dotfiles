@@ -1,0 +1,16 @@
+[core]
+	name = igaray
+	email = igarai@gmail.com
+    eol = lf
+    editor = vim
+[user]
+	name = Iñaki Garay
+	email = igarai@gmail.com
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	undo = reset --hard HEAD~1
