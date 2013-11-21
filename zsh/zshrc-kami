@@ -1,0 +1,2 @@
+export XDG_CONFIG_HOME="/home/igaray/.config"
+export BSPWM_SOCKET="/tmp/bspwm-socket"
