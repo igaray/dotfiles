@@ -336,7 +336,7 @@ horizontal_split=1
 vertical_equal=1
 left_panel_size=79
 horizontal_equal=1
-top_panel_size=25
+top_panel_size=27
 
 
 
@@ -541,6 +541,36 @@ top_panel_size=25
 
 
 
+
+[Dirs]
+other_dir=/home/igaray/usb/AUDIBLE
+current_is_left=1
+
+[New Left Panel]
+display=listing
+reverse=0
+case_sensitive=1
+sort_order=extension
+list_mode=full
+user_format=half type name | size | perm
+user_status0=half type name | size | perm
+user_status1=half type name | size | perm
+user_status2=half type name | size | perm
+user_status3=half type name | size | perm
+user_mini_status=0
+
+[New Right Panel]
+display=listing
+reverse=0
+case_sensitive=1
+sort_order=extension
+list_mode=full
+user_format=half type name | size | perm
+user_status0=half type name | size | perm
+user_status1=half type name | size | perm
+user_status2=half type name | size | perm
+user_status3=half type name | size | perm
+user_mini_status=0
 
 [Misc]
 ftpfs_password=anonymous@

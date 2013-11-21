@@ -3,6 +3,7 @@
 	email = igarai@gmail.com
     eol = lf
     editor = vim
+	excludesfile = /Users/inaki/.gitignore_global
 [user]
 	name = Iñaki Garay
 	email = igarai@gmail.com
@@ -12,5 +13,7 @@
     interactive = auto
     status = auto
 [alias]
+    co = checkout
+    br = branch
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	undo = reset --hard HEAD~1

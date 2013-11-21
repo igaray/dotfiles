@@ -150,14 +150,16 @@ internetmenu =
 , { "chromium",     "chromium"                              }
 }
 
-sublime_cmd = "/home/igaray/bin/sublime_text/sublime_text"
+sublime2_cmd = "/home/igaray/bin/sublime_text/sublime_text"
+sublime3_cmd = "/home/igaray/bin/sublime_text_3/sublime_text"
 othermenu = 
 { { "xmind",     "XMind"                    }
 , { "dia",       "dia"                      }
 , { "office",    "libreoffice"              }
 , { "pyrenamer", "pyrenamer"                }
 , { "thunar",    "thunar"                   }
-, { "sublime",   sublime_cmd                }
+, { "st2",       sublime2_cmd               }
+, { "st3",       sublime3_cmd               }
 , { "wiki",      "uzbl-browser 127.0.0.1"   }
 }
 

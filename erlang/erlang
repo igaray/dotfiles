@@ -1,0 +1,14 @@
+shell:history(9999).
+code:load_abs("/Users/inaki/user_default").
+Modules = 
+    [M 
+    || {module, M} <- 
+        [code:load_file(list_to_atom(re:replace(filename:basename(F), "[.]beam$", "", [{return, list}]))) 
+        || P <- 
+            code:get_path(), 
+            string:str(P, code:lib_dir()) == 0, 
+            F <- 
+                filelib:wildcard(filename:join(P, "*.beam"))
+        ]
+    ].
+
