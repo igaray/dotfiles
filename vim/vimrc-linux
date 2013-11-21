@@ -22,14 +22,13 @@
  filetype plugin indent on                                                      " Enable filetype detection
  autocmd BufReadPost *.pl set syntax=prolog
 
+ syntax enable                  " Enable syntax highlighting.
+ set background=dark
+"colorscheme solarized          " Load colorscheme.
+"colorscheme molokai
  if !has("gui_runnin")
      set term=screen-256color
  endif
- 
- syntax enable                  " Enable syntax highlighting.
-"set background=dark
-"colorscheme solarized          " Load colorscheme.
- colorscheme molokai
 
 " NetBeans-style highlight of the word under the cursor, can be slow on large files.
 "autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
@@ -51,7 +50,7 @@
  set virtualedit=all            " By default, vim doesn't let the cursor stray beyond the defined text. 
                                 " This setting allows the cursor to freely roam anywhere it likes in command mode. 
                                 " It feels weird at first but is quite useful.
-                                "
+
  set ofu=syntaxcomplete#Complete
  set pastetoggle=<F2>
 
@@ -131,15 +130,7 @@
 " Folding : http://vim.wikia.com/wiki/Syntax-based_folding, see comment by Ostrygen 
  set foldenable
  set foldmethod=syntax
-"set foldmethod=indent
 
-" au FileType cs set omnifunc=syntaxcomplete#Complete
-" au FileType cs set foldmethod=marker
-" au FileType cs set foldmarker={,}
-" au FileType cs set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
-" au FileType cs set foldlevelstart=2 
-"
-" The above stolen from here:
 " http://arun.wordpress.com/2009/04/10/c-and-vim/
 
 " Turn off annoying error bells. 
@@ -156,10 +147,6 @@
 "let g:erlangFoldSplitFunction=1
 
 " Mappings
-
-" Changes the leader key from default / to , 
- nnoremap , /
- let mapleader=","
 
 " While in insert, press j twice to go into command mode. Words or variables with two j's in a row are very rare.
  imap jj <C-[>

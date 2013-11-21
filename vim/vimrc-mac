@@ -20,15 +20,15 @@
 
 " Autoload
  filetype plugin indent on                                                      " Enable filetype detection
-"autocmd BufReadPost *.pl set syntax=prolog
+ autocmd BufReadPost *.pl set syntax=prolog
 
  syntax enable                  " Enable syntax highlighting.
  set background=dark
 "colorscheme solarized          " Load colorscheme.
 "colorscheme molokai
-"if !has("gui_runnin")
-"    set term=screen-256color
-"endif
+ if !has("gui_runnin")
+     set term=screen-256color
+ endif
 
 " NetBeans-style highlight of the word under the cursor, can be slow on large files.
 "autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
@@ -50,11 +50,12 @@
  set virtualedit=all            " By default, vim doesn't let the cursor stray beyond the defined text. 
                                 " This setting allows the cursor to freely roam anywhere it likes in command mode. 
                                 " It feels weird at first but is quite useful.
+
  set ofu=syntaxcomplete#Complete
  set pastetoggle=<F2>
 
 " Backups
- set nobackup                   " Dont create annoying backup files.
+"set nobackup                   " Dont create annoying backup files.
  set backupdir=~/.vim/backupdir
 
 " Recovery options
@@ -91,8 +92,8 @@
 " The <leader><space> mapping makes it easy to clear out a search by typing ,<space>
 " This gets rid of distracting  highlights once you found what you're looking for. 
 " The last two lines make the tab key natch bracket pairs. Tab is a lot easier to type than %.
- nnoremap / /\v
- vnoremap / /\v 
+"nnoremap / /\v
+"vnoremap / /\v 
  set ignorecase                 " Do case-insensitive searching.
  set smartcase                  " When a search phrase has uppercase, don't be case insensitive.
  set gdefault                   " 
@@ -102,7 +103,10 @@
                                 " This setting will cause the cursor to very briefly jump to a brace/parenthese/bracket's "match" whenever you type a closing or opening brace/parenthese/bracket. I've had almost no mismatched-punctuation errors since I started using this setting.
  set isk+=_,$,@,%,#,-,?,%,&     " None of these should be word dividers.
  set matchpairs+=<:>            " Make < and > match as well
- set matchtime=3                " Show matching brackets for only 0.3 seconds
+"set matchtime=3                " Show matching brackets for only 0.3 seconds
+ nnoremap <leader><space> :noh<cr>
+ nnoremap <tab> %
+ vnoremap <tab> %
 
 " Indenting
 " The first setting sets up 4-space tabs, and the second tells vim to use 4 spaces when text is indented (auto or with the manual indent adjustmenters.)
@@ -123,23 +127,10 @@
                                 " 'shiftwidth' is only used for shifting text left or right |shift-left-right|.  
                                 " What gets inserted (a <Tab> or spaces) depends on the 'expandtab' option.  
 
-" Folding
- set foldmethod=syntax
- set foldmethod=indent
- set foldenable
-
- set foldmethod=indent   "fold based on indent
- set foldnestmax=10      "deepest fold is 10 levels
- set nofoldenable        "dont fold by default
- set foldlevel=1         "this is just what i use
-
 " Folding : http://vim.wikia.com/wiki/Syntax-based_folding, see comment by Ostrygen 
-  au FileType cs set omnifunc=syntaxcomplete#Complete
-  au FileType cs set foldmethod=marker
-  au FileType cs set foldmarker={,}
-  au FileType cs set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
-  au FileType cs set foldlevelstart=2 
-" The above stolen from here:
+ set foldenable
+ set foldmethod=syntax
+
 " http://arun.wordpress.com/2009/04/10/c-and-vim/
 
 " Turn off annoying error bells. 
@@ -157,10 +148,6 @@
 
 " Mappings
 
-" Changes the leader key from default / to , 
-"nnoremap , /
-"let mapleader=","
-
 " While in insert, press j twice to go into command mode. Words or variables with two j's in a row are very rare.
  imap jj <C-[>
 
@@ -170,11 +157,11 @@
  nmap ., :tabpre<CR>
 
 " While in insert, automatically set paste, paste, and then set nopaste.
-"imap <Leader>v  <C-O>:set paste<CR><C-r>*<C-O>:set nopaste<CR>  
+ imap <Leader>v  <C-O>:set paste<CR><C-r>*<C-O>:set nopaste<CR>  
 
 " If we weren't about to disable the arrow keys entirely, this would make them move as expected with wrapped lines in insert mode.
-"inoremap <up>   <C-o>gk
-"inoremap <down> <C-o>gj
+ inoremap <up>   <C-o>gk
+ inoremap <down> <C-o>gj
 
 " Disable arrow keys to force you to learn to use the hjkl. 
 " Also, make cursor move as expected with wrapped lines in insert mode.
@@ -182,10 +169,11 @@
  nnoremap <down>  <nop>
  nnoremap <left>  <nop>
  nnoremap <right> <nop>
- inoremap <up>    <nop>
- inoremap <down>  <nop>
- inoremap <left>  <nop>
- inoremap <right> <nop>
+" I like to keep these to make small movements while in insert mode.
+"inoremap <up>    <nop>
+"inoremap <down>  <nop>
+"inoremap <left>  <nop>
+"inoremap <right> <nop>
  nnoremap j       gj
  nnoremap k       gk
 
