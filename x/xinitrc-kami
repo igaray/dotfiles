@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Turn off the motherfucking bell.
+ xset -b
+
+# Set font directory
+ xset +fp /usr/share/fonts/local
+#xset +fp /home/igaray/.config/awesome/fonts
+ xset fp rehash
+
+# Enable restart X
+ setxkbmap -option terminate:ctrl_alt_bksp &
+
+ hsetroot -full /home/igaray/Dropbox/system/wallpapers/wallpaper.jpg
+
+ wmname LG3D
+
+ urxvtd -q -o -f &
+
+ exec awesome
