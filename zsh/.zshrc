@@ -1,3 +1,30 @@
+os=$OSTYPE
+if [[ ${os:0:6} == "darwin" ]]; then
+    os="darwin"
+elif [[ ${os:0:5} == "linux" ]]; then
+    os="linux"
+fi
+
+#case $os in
+#    "darwin") 
+#        echo "1"
+#        ;;
+#    "linux") 
+#        echo "2"
+#        ;;
+#esac
+
+#if [[ $os == "" ]]; then
+#fi
+
+###############################################################################
+# VARIABLES
+
+# RVM
+if [[ $os == "darwin" ]]; then
+    [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+    export PATH=$PATH:$HOME/bin:$HOME/.rvm/bin
+fi
 
 # set $PATH
 export PATH=./:$PATH:$HOME/bin:$HOME/dotfiles/scripts/
@@ -8,9 +35,13 @@ HISTSIZE=1000
 SAVEHIST=1000
 COMPLETION_WAITING_DOTS="true"
 
+###############################################################################
+# OPTIONS
+
 # vim-style line editing
  bindkey -v
  bindkey "jj" vi-cmd-mode
+ bindkey '^R' history-incremental-search-backward
 
 # enable autocompletion
  autoload -U compinit
@@ -22,49 +53,32 @@ COMPLETION_WAITING_DOTS="true"
 # enable alias completion
  setopt completealiases
 
-# create a zkbd compatible hash;
-# to add other keys to this hash, see: man 5 terminfo
- typeset -A key
- 
- key[Home]=${terminfo[khome]}
- 
- key[End]=${terminfo[kend]}
- key[Insert]=${terminfo[kich1]}
- key[Delete]=${terminfo[kdch1]}
- key[Up]=${terminfo[kcuu1]}
- key[Down]=${terminfo[kcud1]}
- key[Left]=${terminfo[kcub1]}
- key[Right]=${terminfo[kcuf1]}
- key[PageUp]=${terminfo[kpp]}
- key[PageDown]=${terminfo[knp]}
+# with autocd you can type the name of the directory and it will become the
+# current directory
+ setopt autocd 
+ setopt extendedglob 
+ setopt nomatch 
+ setopt notify
+# correct will enable spelling correction for commands
+ setopt correct
+# correctall will enable spelling correction for parameters
+ unsetopt correctall
 
-# setup key accordingly
- [[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
- [[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
- [[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
- [[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
- [[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
- [[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
- [[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
- [[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
+# noclobber will prevent accidentally overwriting an existing file
+# If you really do want to clobber a file, you can use the >! operator.
+ setopt noclobber
 
-# Finally, make sure the terminal is in application mode, when zle is
-# active. Only then are the values from $terminfo valid.
+# append history list to the history file; this is the default but we make sure
+# because it's required for share_history.
+ setopt append_history
 
-if [[ -n ${terminfo[smkx]} ]] && [[ -n ${terminfo[rmkx]} ]]; then 
-     function zle-line-init () {
-         echoti smkx
-     }
-     function zle-line-finish () {
-         echoti rmkx
-     }
-     zle -N zle-line-init
-     zle -N zle-line-finish
- fi
+###############################################################################
+# THEME
 
-# only show past commands which start with the current input
- bindkey "^[[A" history-beginning-search-backward
- bindkey "^[[B" history-beginning-search-forward
+# load vcs info and colors for prompt
+autoload -Uz vcs_info
+autoload -U colors && colors
+setopt prompt_subst
 
 # prompt theme
  autoload -U promptinit
@@ -86,52 +100,147 @@ if [[ -n ${terminfo[smkx]} ]] && [[ -n ${terminfo[rmkx]} ]]; then
 #prompt walters
 #prompt zefram
 
-# with autocd you can type the name of the directory and it will become the
-# current directory
- setopt autocd 
- setopt extendedglob 
- setopt nomatch 
- setopt notify
-# correct will enable spelling correction for commands
-# correctall will enable spelling correction for parameters
- setopt correct
- unsetopt correctall
+prompt_igaray_precmd () {
+    setopt localoptions
+    local exitstatus=$?
+    
+    zstyle ':vcs_info:*' enable git svn
+    zstyle ':vcs_info:*' check-for-changes true
+    zstyle ':vcs_info:*' stagedstr   '+'
+    zstyle ':vcs_info:*' unstagedstr '-'
+    zstyle ':vcs_info:*' formats '%F{red}[%f %b%u%c %F{red]%f'
+    if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
+        zstyle ':vcs_info:*' formats "%b%c%u"
+    } else {
+        zstyle ':vcs_info:*' formats "%b%c%u*"
+    }
+    
+    vcs_info
+    psvar=()
+    [[ $exitstatus -ge 128 ]] && psvar[1]="$signals[$exitstatus-127]" || psvar[1]=""
+    [[ -n $vcs_info_msg_0_ ]] && psvar[2]="$vcs_info_msg_0_"
+}
 
-# noclobber will prevent accidentally overwriting an existing file
-# If you really do want to clobber a file, you can use the >! operator.
- setopt noclobber
+prompt_igaray_setup () {
+    local -a pcc
+    local -A pc
+    local p_date p_tty p_plat p_ver p_userpwd p_apm p_shlvlhist p_rc p_end p_win
+    
+    # Defines default prompt color codes in an array
+    # cyan green yellow white
+    pcc[1]=${1:-${${SSH_CLIENT+'yellow'}:-'red'}}
+    pcc[2]=${2:-'white'}
+    pcc[3]=${3:-'blue'}
+    pcc[4]=${4:-'green'}
+    pcc[5]=${5:-'yellow'}
+    
+    # Defines default prompt commands in an array.
+    pc['bo']="%F{$pcc[1]}[%f"
+    pc['bc']="%F{$pcc[1]}]%f"
+    pc['ao']="%F{$pcc[1]}<%f"
+    pc['ac']="%F{$pcc[1]}>%f"
+    pc['po']="%F{$pcc[1]}(%f"
+    pc['pc']="%F{$pcc[1]})%f"
+    
+    # Defines the different parts of the prompt.
+    p_user="$pc['bo']%F{$pcc[4]}%n@%m$pc['bc']:"
+    p_pwd="$pc['bo']%F{$pcc[3]}%~$pc['bc']"
+    p_vcs="$pc['bo']%(2v.%U%2v%u.)$pc['bc']"
+    p_time="$pc['bo']%F{$pcc[2]}%D{%R}$pc['bc']"
+    p_end="%B%#%b "
+    
+    prompt="$p_time$p_pwd$p_vcs
+$p_end"
+    PS2='%(4_.\.)%3_> %E'
+    
+    add-zsh-hook precmd prompt_igaray_precmd
+}
 
-# append history list to the history file; this is the default but we make sure
-# because it's required for share_history.
- setopt append_history
+ prompt_igaray_setup "$@"
 
-# Useful shortcuts
- alias           ..='cd ..'
- alias           ls='ls --group-directories-first --color=auto -X'
- alias           la='ls --group-directories-first --color=auto -X -a'
- alias            l='ls --group-directories-first --color=auto -X -l -h'
- alias           lk="ls --group-directories-first --color=auto -X -lSr"  # sort by size, biggest last
- alias           lt="ls --group-directories-first --color=auto -X -ltr"  # sort by date, most recent last
- alias          lsr="tree -Csu"                                          # nice alternative to 'recursive ls'
- alias     sizesort='du -s *    | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
+if [[ $os == "linux" ]]; then
+    # create a zkbd compatible hash;
+    # to add other keys to this hash, see: man 5 terminfo
+    typeset -A key
+    key[Home]=${terminfo[khome]}
+    key[End]=${terminfo[kend]}
+    key[Insert]=${terminfo[kich1]}
+    key[Delete]=${terminfo[kdch1]}
+    key[Up]=${terminfo[kcuu1]}
+    key[Down]=${terminfo[kcud1]}
+    key[Left]=${terminfo[kcub1]}
+    key[Right]=${terminfo[kcuf1]}
+    key[PageUp]=${terminfo[kpp]}
+    key[PageDown]=${terminfo[knp]}
 
- alias      weechat='weechat-curses'
- alias      vimhelp='less ~/Documents/science/computer-science/operating-systems/linux/commands/vim/my.vim.reference.txt'
- alias      awehelp='less ~/.config/awesome/awesome.keys.txt'
+    # setup key accordingly
+    [[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
+    [[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
+    [[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
+    [[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
+    [[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
+    [[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
+    [[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
+    [[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
 
- alias       volume='alsamixer -g'
- alias       winmnt='sudo mount /dev/sda1 /home/igaray/win -o uid=$(id -u),gid=$(id -g)'
- alias      winumnt='sudo umount /home/igaray/win'
- alias      extumnt='sync; sudo umount /home/igaray/tera'
- alias      usbumnt='sync; sudo umount /home/igaray/usb'
- alias        music='ncmpcpp'
- alias         wifi='wicd-curses'
- alias         subl='~/bin/sublime_text/sublime_text/sublime_text'
- alias filenamedate='date +"%Y_%m_%d_%H_%M"'
- alias autodestruct='sudo shutdown -h now'
- alias         gits='git status'
+    # Finally, make sure the terminal is in application mode, when zle is
+    # active. Only then are the values from $terminfo valid.
 
-# Functions
+    if [[ -n ${terminfo[smkx]} ]] && [[ -n ${terminfo[rmkx]} ]]; then 
+        function zle-line-init () {
+            echoti smkx
+        }
+        function zle-line-finish () {
+            echoti rmkx
+        }
+        zle -N zle-line-init
+        zle -N zle-line-finish
+    fi
+
+    # only show past commands which start with the current input
+    bindkey "^[[A" history-beginning-search-backward
+    bindkey "^[[B" history-beginning-search-forward
+fi
+
+###############################################################################
+# ALIAS
+
+case $os in
+    "darwin") 
+        alias           ..='cd ..'
+        alias           ls='ls -G'
+        alias           la='ls -G -A'
+        alias            l='ls -G -l -h'
+        alias         gits='git status'
+        ;;
+    "linux") 
+        alias           ..='cd ..'
+        alias           ls='ls --group-directories-first --color=auto -X'
+        alias           la='ls --group-directories-first --color=auto -X -a'
+        alias            l='ls --group-directories-first --color=auto -X -l -h'
+        alias           lk="ls --group-directories-first --color=auto -X -lSr"  # sort by size, biggest last
+        alias           lt="ls --group-directories-first --color=auto -X -ltr"  # sort by date, most recent last
+        alias          lsr="tree -Csu"                                          # nice alternative to 'recursive ls'
+        alias     sizesort='du -s *    | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
+        alias      weechat='weechat-curses'
+        alias      vimhelp='less ~/Documents/science/computer-science/operating-systems/linux/commands/vim/my.vim.reference.txt'
+        alias      awehelp='less ~/.config/awesome/awesome.keys.txt'
+        alias       volume='alsamixer -g'
+        alias       winmnt='sudo mount /dev/sda1 /home/igaray/win -o uid=$(id -u),gid=$(id -g)'
+        alias      winumnt='sudo umount /home/igaray/win'
+        alias      extumnt='sync; sudo umount /home/igaray/tera'
+        alias      usbumnt='sync; sudo umount /home/igaray/usb'
+        alias        music='ncmpcpp'
+        alias         wifi='wicd-curses'
+        alias         subl='~/bin/sublime_text/sublime_text/sublime_text'
+        alias filenamedate='date +"%Y_%m_%d_%H_%M"'
+        alias autodestruct='sudo shutdown -h now'
+        alias         gits='git status'
+        ;;
+esac
+
+###############################################################################
+# FUNCTIONS
 
 #------------------------------------------------------------------------------#
 export MARKPATH=$HOME/.marks
