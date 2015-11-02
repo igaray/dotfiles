@@ -110,9 +110,9 @@
 
 " Indenting
 " The first setting sets up 4-space tabs, and the second tells vim to use 4 spaces when text is indented (auto or with the manual indent adjustmenters.)
- set tabstop=4                  " Number of spaces for tab character.
- set shiftwidth=4               " Number of spaces for autoindent and soft tab stops.
- set softtabstop=4              " Backspace fake tabs.
+ set tabstop=2                  " Number of spaces for tab character.
+ set shiftwidth=2               " Number of spaces for autoindent and soft tab stops.
+ set softtabstop=2              " Backspace fake tabs.
  set expandtab                  " Do expand tabs into spaces.
 
 " The first setting tells vim to use "autoindent" (that is, use the current line's indent level to set the indent level of new lines). 

@@ -1,0 +1,108 @@
+
+!{{{ XFT
+Xft.dpi:       96
+Xft.antialias: true
+Xft.hinting:   true
+Xft.hintstyle: hintfull
+Xft.rgba:      rgb
+!}}}
+
+!{{{ Colors
+! The colors 0-7 are the 'normal' colors, while colors 8-15 are their 'bright' counterparts (used for highlighting, etc.)
+! 0-8  black/bright black
+! 1-9  red/bright red
+! 2-10 green/bright green
+! 3-11 yellow/bright yellow
+! 4-12 blue/bright blue
+! 5-13 magenta/bright magenta
+! 6-14 cyan/bright cyan
+! 7-15 white/bright white
+!}}}
+
+*fading: 40
+
+!{{{ URXVT
+
+! General
+ urxvt*title:                urxvt
+ urxvt*buffered:             true
+ urxvt*termName:             rxvt-256color
+ urxvt*loginShell:           true
+ urxvt*scrollBar:            false
+ urxvt*secondaryScroll:      false
+ urxvt*saveLines:            65535
+ urxvt*cursorBlink:          true
+ urxvt*urgentOnBell:         true
+ urxvt*override-redirect:    false
+ urxvt*iso14755:             false
+
+! Appearance
+ urxvt*background:           black
+ urxvt*foreground:           white
+
+ urxvt*borderLess:           false
+ urxvt*borderWidth:          0
+ urxvt*internalBorder:       0
+
+!urxvt*font:                 -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
+!urxvt*boldFont:             -*-terminus-bold-*-*-*-16-*-*-*-*-*-*-*
+ urxvt*font:                 xft:DejaVu Sans Mono:pixelsize=20
+ urxvt*boldFont:             xft:DejaVu Sans Mono:pixelsize=20:bold:autohint=true
+
+! Fade when unfocused
+ urxvt*fading:               30
+ urxvt*fadeColor:            #000000
+
+! Pseudo Transparency
+!urxvt*inheritPixmap:        true
+!urxvt*tintColor:            #000000
+ urxvt*transparent:          true
+ urxvt*shading:              40
+
+! Cursor
+ urxvt*cursorColor:          #dcdccc
+
+! Extensions
+
+! Values from the installed package
+ urxvt*perl-lib:             /usr/lib/urxvt/perl/
+ urxvt*perl-ext-common:      default,clipboard,url-select,keyboard-select
+!urxvt*perl-ext-common:      default,clipboard,url-select,keyboard-select,matcher,searchable-scrollback
+ urxvt*url-select.launcher:  chromium
+ urxvt*url-select.underline: true
+ urxvt*keysym.M-u:           perl:url-select:select_next
+ urxvt*keysym.M-Escape:      perl:keyboard-select:activate
+ urxvt*keysym.M-s:           perl:keyboard-select:search
+ urxvt*keysym.Ctrl-c:        perl:clipboard:copy
+ urxvt*keysym.Ctrl-v:        perl:clipboard:paste
+ urxvt*keysym.Shift-Ctrl-v:  perl:clipboard:paste_escaped
+
+!urxvt*clipboard.copycmd:    xsel -ib
+!urxvt*clipboard.pastecmd:   xsel -ob
+!urxvt*clipboard.copycmd:    xclip -i -selection clipboard
+!urxvt*clipboard.pastecmd:   xclip -o -selection clipboard
+
+! So we catch even nasty URLs
+ urxvt*cutchars:             ()<>[]{}|*`'"
+
+! :Bind C-0, C-+ and C-= to activate small, medium, and big font size resp.
+urxvt.keysym.C-minus: command:\033]710;xft:DejaVu Sans Mono:pixelsize=20\007
+urxvt.keysym.C-equal: command:\033]710;xft:DejaVu Sans Mono:pixelsize=32\007
+!}}}
+
+!{{{ XTERM
+ xterm*internalBorder:    0
+ xterm*loginShell:        true
+ xterm*scrollBar:         false
+ xterm*cursorBlink:       false
+ xterm*saveLines:         65535
+ xterm*dynamicColors:     on
+ xterm*highlightSelection:true
+
+! Appearance
+ xterm*utf8:              2
+ xterm*eightBitInput:     true
+ xterm*faceName:          terminus:pixelsize=12
+ xterm*cursorColor:       #ffffff
+!}}}
+

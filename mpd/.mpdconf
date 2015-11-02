@@ -1,23 +1,23 @@
-music_directory "/home/igaray/Music"
-db_file "/home/igaray/.mpd/mpd.db"
-log_file "/home/igaray/.mpd/mpd.log"
-pid_file "/home/igaray/.mpd/mpd.pid"
-state_file "/home/igaray/.mpd/mpdstate"
-sticker_file "/home/igaray/.mpd/sticker.sql"
+music_directory "/home/igaray/usb/Music"
+db_file         "/home/igaray/.config/mpd/mpd.db"
+log_file        "/home/igaray/.config/mpd/mpd.log"
+pid_file        "/home/igaray/.config/mpd/mpd.pid"
+state_file      "/home/igaray/.config/mpd/mpdstate"
+sticker_file    "/home/igaray/.config/mpd/sticker.sql"
 
 ###############################################################################
 # General music daemon options ################################################
 
-user "igaray"
-group "users"
-bind_to_address "127.0.0.1"
-port "6600"
-log_level "default"
-gapless_mp3_playback "yes"
-restore_paused "yes"
+user                             "igaray"
+group                            "igaray"
+bind_to_address                  "127.0.0.1"
+port                             "6600"
+log_level                        "default"
+gapless_mp3_playback             "yes"
+restore_paused                   "yes"
 save_absolute_paths_in_playlists "no"
-metadata_to_use "artist,album,title,track,name,date,composer,performer,disc"
-auto_update "yes"
+metadata_to_use                  "artist,album,title,track,name,date,composer,performer,disc"
+auto_update                      "yes"
 
 ###############################################################################
 # Input #######################################################################
@@ -29,31 +29,35 @@ input {
 ###############################################################################
 # Audio Output ################################################################
 
-audio_output {
-    type            "alsa"
-    name            "My ALSA Device"
-    device          "hw:0,0"
-    format          "44100:16:2"
-    mixer_type      "hardware"
-    mixer_device    "default"
-    mixer_control   "PCM"
-    mixer_index     "0"
-}
+#audio_output {
+#    type            "alsa"
+#    name            "My ALSA Device"
+#    device          "hw:0,0"
+#    format          "44100:16:2"
+#    mixer_type      "hardware"
+#    mixer_device    "default"
+#    mixer_control   "PCM"
+#    mixer_index     "0"
+#}
+#
+#audio_output {
+#   type             "httpd"
+#   name             "My HTTP Stream"
+#   encoder          "vorbis"
+#   port             "8000"
+#   bind_to_address  "0.0.0.0"
+#   bitrate          "128"
+#   format           "44100:16:1"
+#   max_clients      "0"
+#}
+#
+#audio_output {
+#    type        "pulse"
+#    name        "My Pulse Output"
+#    server      "127.0.0.1"
+#}
 
 audio_output {
-   type             "httpd"
-   name             "My HTTP Stream"
-   encoder          "vorbis"
-   port             "8000"
-   bind_to_address  "0.0.0.0"
-   bitrate          "128"
-   format           "44100:16:1"
-   max_clients      "0"
+        type            "pulse"
+        name            "pulse audio"
 }
-
-audio_output {
-    type        "pulse"
-    name        "My Pulse Output"
-    server      "127.0.0.1"
-}
-

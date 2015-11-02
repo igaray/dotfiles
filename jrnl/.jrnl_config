@@ -1,0 +1,15 @@
+{
+  "default_hour": 9, 
+  "timeformat": "%Y-%m-%d %H:%M", 
+  "linewrap": 79, 
+  "encrypt": false, 
+  "editor": "vim", 
+  "default_minute": 0, 
+  "highlight": true, 
+  "journals": {
+    "default": "/home/igaray/Dropbox/private/journal.txt",
+    "inaka": "/home/igaray/Dropbox/private/inaka.txt",
+    "growing": "/home/igaray/Dropbox/private/growing_jrnl.txt"
+  }, 
+  "tagsymbols": "@"
+}

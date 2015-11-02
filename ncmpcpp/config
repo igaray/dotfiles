@@ -283,7 +283,7 @@ user_interface = "alternative"
 #
 show_hidden_files_in_local_browser = "no"
 #
-display_screens_numbers_on_start = "yes"
+#display_screens_numbers_on_start = "yes"
 #
 ##
 ## How shall key_screen_switcher work?
@@ -313,7 +313,7 @@ display_screens_numbers_on_start = "yes"
 ## Note: You can define startup screen for ncmpcpp
 ## by choosing screen number from the list above.
 ##
-startup_screen = "2"
+#startup_screen = "2"
 #
 #jump_to_now_playing_song_at_start = "yes"
 #
@@ -347,11 +347,11 @@ empty_tag_marker = ""
 #
 #tag_editor_extended_numeration = "no"
 #
-media_library_display_date = "yes"
+#media_library_display_date = "yes"
 #
 #media_library_display_empty_tag = "yes"
 #
-media_library_disable_two_column_mode = "yes"
+#media_library_disable_two_column_mode = "yes"
 #
 #enable_window_title = "yes"
 #

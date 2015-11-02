@@ -236,6 +236,9 @@ regex/\.(C|cc|cpp)$
 
 ### Documentation ###
 
+regex/\.(3[gG][pP])$
+	Include=video
+
 # Texinfo
 regex/\.(te?xi|texinfo)$
 
@@ -361,6 +364,9 @@ regex/\.([mM]3[uU]|[pP][lL][sS])$
 
 ### Video ###
 
+regex/\.([mM][tT][sS])$
+	Include=video
+
 regex/\.([mM][kK][vV])$
 	Include=video
 
@@ -394,11 +400,14 @@ regex/\.([wW][mM][vV])$
 regex/\.([oO][gG][mM])$
 	Include=video
 
+regex/\.([wW][eE][bB][mM])$
+	Include=video
+
 regex/\.([rR][aA]?[mM])$
 	Open=(realplay %f >/dev/null 2>&1 &)
 
 include/video
-	Open=(vlc -f %f >/dev/null &)
+	Open=(vlc -f %f 2>/dev/null &)
 
 ### Documents ###
 

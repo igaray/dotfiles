@@ -112,23 +112,37 @@ not_used(App, Filter) ->
     xref:stop(?MODULE)
   end.
 
--spec choosy_not_used() -> [mfa()].
-choosy_not_used() ->
-  not_used(
-    choosy,
-    fun ({choosy_repo, _, _}) -> false;
-        ({choosy, _, _})      -> false;
-        ({choosy_sup, _, _})  -> false;
-        ({_, start_link, _})  -> false;
-        ({M, _, _}) ->
-          case lists:reverse(atom_to_list(M)) of
-            lists:reverse("_handler") ++ _ -> false;
-            lists:reverse("_SUITE")   ++ _ -> false;
-            _                              -> true
-          end
-    end).
+%-spec choosy_not_used() -> [mfa()].
+%choosy_not_used() ->
+%  not_used(
+%    choosy,
+%    fun ({choosy_repo, _, _}) -> false;
+%        ({choosy, _, _})      -> false;
+%        ({choosy_sup, _, _})  -> false;
+%        ({_, start_link, _})  -> false;
+%        ({M, _, _}) ->
+%          case lists:reverse(atom_to_list(M)) of
+%            lists:reverse("_handler") ++ _ -> false;
+%            lists:reverse("_SUITE")   ++ _ -> false;
+%            _                              -> true
+%          end
+%    end).
 
 -spec cmd(iodata()) -> _.
 cmd(Cmd) ->
   io:format("~s~n", [os:cmd(Cmd)]).
 
+-spec clear() -> 'Use the source, Luke'.
+clear() -> 
+  io:format("\e[H\e[J"),
+  'Use the source, Luke'.
+
+ppst(StackTrace) ->
+  F =
+    fun({_Module, Function, Arity, Props}) ->
+      File = proplists:get_value(file, Props),
+      Line = proplists:get_value(line, Props),
+      io_lib:format("\t~s:~p:~p/~p~n", [File, Line, Function, Arity])
+    end,
+  S = lists:flatten(["\n", lists:map(F, StackTrace), "\n"]),
+  io:format("~s", [S]).
