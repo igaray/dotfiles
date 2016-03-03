@@ -221,24 +221,19 @@ case $os in
         alias           lk="ls --group-directories-first --color=auto -X -lSr"  # sort by size, biggest last
         alias           lt="ls --group-directories-first --color=auto -X -ltr"  # sort by date, most recent last
         alias          lsr="tree -Csu"                                          # nice alternative to 'recursive ls'
-        alias      fucking="sudo"
+        alias           nv="nvim"
         alias     sizesort='du -s *    | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
         alias      weechat='weechat-curses'
-        alias      vimhelp='less ~/Documents/science/computer-science/operating-systems/linux/commands/vim/my.vim.reference.txt'
-        alias      awehelp='less ~/.config/awesome/awesome.keys.txt'
         alias       volume='alsamixer -g'
         alias       winmnt='sudo mount /dev/sda1 /home/igaray/win -o uid=$(id -u),gid=$(id -g)'
         alias      winumnt='sudo umount /home/igaray/win'
         alias      extumnt='sync; sudo umount /home/igaray/tera'
         alias      usbumnt='sync; sudo umount /home/igaray/usb'
         alias        music='ncmpcpp'
-        alias         wifi='wicd-curses'
-        alias         subl='~/bin/sublime_text/sublime_text/sublime_text'
         alias filenamedate='date +"%Y_%m_%d_%H_%M"'
         alias autodestruct='sudo shutdown -h now'
         alias   whispervpn='sudo openvpn /etc/openvpn/whisper/client.conf'
         alias     inakavpn='sudo openvpn /etc/openvpn/inaka/client.conf'
-        alias     terraria='WINEPREFIX=~/.wine32 wine /home/igaray/.wine/drive_c/GOG\ Games/Terraria/Terraria.exe'
         alias       review='rbt post --description "$(git log HEAD...origin/master)" --summary "$(git log -1 --pretty=format:%s | head -1)" --testing-done "Common Test Suites" --target-groups="DX-Software" --server=http://review.dssd.com'
         ;;
 esac
