@@ -207,25 +207,24 @@ $p_end"
 
 alias gits='git status'
 
+alias       ..='cd ..'
+alias      lsr="tree -Csu" # nice alternative to 'recursive ls'
+alias sizesort='du -s * | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
+alias  weechat='weechat-curses'
+
 case $os in
-    "darwin") 
-        alias           ..='cd ..'
+    "darwin")
         alias           ls='ls -G'
         alias           la='ls -G -A'
-        alias            l='ls -G -l -h'
+        alias           ll='ls -G -l -h'
+	alias           l1='ls -G -1'
         ;;
     "linux") 
-        alias           ..='cd ..'
         alias           ls='ls --group-directories-first --color=auto -X'
         alias           la='ls --group-directories-first --color=auto -X -a'
-        alias            l='ls --group-directories-first --color=auto -X -l -h'
+        alias           ll='ls --group-directories-first --color=auto -X -l -h'
         alias           lk="ls --group-directories-first --color=auto -X -lSr"  # sort by size, biggest last
         alias           lt="ls --group-directories-first --color=auto -X -ltr"  # sort by date, most recent last
-        alias          lsr="tree -Csu"                                          # nice alternative to 'recursive ls'
-        alias     sizesort='du -s *    | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
-        alias      weechat='weechat-curses'
-        alias      vimhelp='less ~/Documents/science/computer-science/operating-systems/linux/commands/vim/my.vim.reference.txt'
-        alias      awehelp='less ~/.config/awesome/awesome.keys.txt'
         alias       volume='alsamixer -g'
         alias       winmnt='sudo mount /dev/sda1 /home/igaray/win -o uid=$(id -u),gid=$(id -g)'
         alias      winumnt='sudo umount /home/igaray/win'
