@@ -3,7 +3,7 @@
 	email = igarai@gmail.com
     eol = lf
     editor = vim
-	excludesfile = /Users/inaki/.gitignore_global
+	excludesfile = /Users/igaray/.gitignore_global
 [user]
 	name = Iñaki Garay
 	email = igarai@gmail.com

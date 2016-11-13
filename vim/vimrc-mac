@@ -13,8 +13,8 @@
 " zencoding
 " matchit
 
-"call pathogen#infect()
-"call pathogen#helptags()
+ call pathogen#infect()
+ call pathogen#helptags()
 
  set nocompatible                                                               " Use vim settings instead of vi settings.
 
@@ -22,14 +22,13 @@
  filetype plugin indent on                                                      " Enable filetype detection
  autocmd BufReadPost *.pl set syntax=prolog
 
+"set term=screen-256color
  syntax enable                  " Enable syntax highlighting.
- "set termguicolors
- "set guicolors
  set background=dark
-"colorscheme solarized          " Load colorscheme.
+"colorscheme default
+ let g:solarized_termcolors=256
+ colorscheme solarized
 "colorscheme molokai
- colorscheme default
- set term=screen-256color
 
 " NetBeans-style highlight of the word under the cursor, can be slow on large files.
 "autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
