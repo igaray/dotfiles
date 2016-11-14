@@ -55,6 +55,16 @@ function uninstall_git() {
   rm -f ~/.gitignore_global
 }
 
+function install_gpg() {
+  echo $INSTALL_MSG "gpg..."
+  cp -R ~/Dropbox/Private/gpg/.gnupg ~/.gnupg
+}
+
+function uninstall_gpg() {
+  echo $UNINSTALL_MSG "gpg..."
+  rm -rf ~/.gnupg
+}
+
 function install_htop() {
   echo $INSTALL_MSG "htop..."
   mkdir -p ~/.config/htop
@@ -90,6 +100,28 @@ function uninstall_mc() {
   rm -f ~/.config/mc
 }
 
+function install_pass() {
+  echo $INSTALL_MSG "pass..."
+  ln -s ~/Dropbox/Private/pass/.password-store ~/.password-store
+}
+
+function uninstall_pass() {
+  echo $UNINSTALL_MSG "pass..."
+  rm -f .password-store
+}
+
+function install_ssh() {
+  echo $INSTALL_MSG "ssh..."
+  cp -R ~/Dropbox/private/ssh/.ssh ~/.ssh
+  chmod 600 ~/.ssh/*
+  chmod 700 ~/.ssh
+}
+
+function uninstall_ssh() {
+  echo $UNINSTALL_MSG "ssh..."
+  rm -rf ~/.ssh
+}
+
 function install_task() {
   echo $INSTALL_MSG "task..."
   ln -s $DOTFILES/task/.taskrc ~/.taskrc
@@ -102,7 +134,7 @@ function uninstall_task() {
 
 function install_tmsu() {
   echo $INSTALL_MSG "tmsu..."
-  ln -s ~/Dropbox/Private/.tmsu ~/.tmsu
+  ln -s ~/Dropbox/Private/tmsu/.tmsu ~/.tmsu
 }
 
 function uninstall_tmsu() {
@@ -134,32 +166,75 @@ function uninstall_vim() {
   rm -rf ~/.vim
 }
 
+function install_weechat() {
+  echo $INSTALL_MSG "weechat..."
+  mkdir -p ~/.weechat
+  # ln -s $DOTFILES/weechat/.weechat ~/.weechat
+}
+
+function uninstall_weechat() {
+  echo $UNINSTALL_MSG "weechat..."
+  rm -f ~/.weechat
+}
+
+function install_zsh() {
+  echo $INSTALL_MSG "zsh..."
+
+  if [[ $OS == "linux" ]]; then
+    ln -s $DOTFILES/bash/linux/.zlogout ~/.zlogout
+    ln -s $DOTFILES/bash/linux/.zprofile ~/.zprofile
+    ln -s $DOTFILES/bash/linux/.zshenv ~/.zshenv
+    ln -s $DOTFILES/bash/linux/.zshrc ~/.zshrc
+  fi
+
+  if [[ $OS == "darwin" ]]; then
+    ln -s $DOTFILES/bash/osx/.zlogout ~/.zlogout
+    ln -s $DOTFILES/bash/osx/.zprofile ~/.zprofile
+    ln -s $DOTFILES/bash/osx/.zshenv ~/.zshenv
+    ln -s $DOTFILES/bash/osx/.zshrc ~/.zshrc
+  fi
+}
+
+function uninstall_zsh() {
+  echo $UNINSTALL_MSG "zsh..."
+  rm -f ~/.zlogout
+  rm -f ~/.zprofile
+  rm -f ~/.zshenv
+  rm -f ~/.zshrc
+}
+
 function install_config() {
   install_bash
-  install_git
-  install_htop
-  install_jrnl
-  install_mc
-  install_task
-  install_tmsu
-  install_tmux
-  install_vim
-  install_weechat
-  install_zsh
+  # install_git
+  # install_gpg
+  # install_htop
+  # install_jrnl
+  # install_mc
+  # install_pass
+  # install_ssh
+  # install_task
+  # install_tmsu
+  # install_tmux
+  # install_vim
+  # install_weechat
+  # install_zsh
 }
 
 function uninstall_config() {
   uninstall_bash
-  uninstall_git
-  uninstall_htop
-  uninstall_jrnl
-  uninstall_mc
-  uninstall_task
-  uninstall_tmsu
-  uninstall_tmux
-  uninstall_vim
-  uninstall_weechat
-  uninstall_zsh
+  # uninstall_git
+  # uninstall_gpg
+  # uninstall_htop
+  # uninstall_jrnl
+  # uninstall_mc
+  # uninstall_pass
+  # uninstall_ssh
+  # uninstall_task
+  # uninstall_tmsu
+  # uninstall_tmux
+  # uninstall_vim
+  # uninstall_weechat
+  # uninstall_zsh
 }
 
 case $1 in

@@ -21,15 +21,15 @@ fi
 ###############################################################################
 # VARIABLES
 
+# set $PATH
+export PATH=$PATH:./:$HOME/bin
+export EDITOR=vim
+
 # RVM
 if [[ $os == "darwin" ]]; then
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
     export PATH=$PATH:$HOME/bin:$HOME/.rvm/bin
 fi
-
-# set $PATH
-export PATH=./:$PATH:$HOME/bin
-export EDITOR=vim
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -205,41 +205,68 @@ $p_end"
 ###############################################################################
 # ALIAS
 
-alias gits='git status'
-
-alias       ..='cd ..'
-alias      lsr="tree -Csu" # nice alternative to 'recursive ls'
-alias sizesort='du -s * | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
-alias  weechat='weechat-curses'
-
 case $os in
-    "darwin")
+    "darwin") 
+        alias           ..='cd ..'
         alias           ls='ls -G'
         alias           la='ls -G -A'
-        alias           ll='ls -G -l -h'
-	alias           l1='ls -G -1'
+        alias            l='ls -G -l -h'
         ;;
     "linux") 
+        alias           ..='cd ..'
         alias           ls='ls --group-directories-first --color=auto -X'
         alias           la='ls --group-directories-first --color=auto -X -a'
         alias           ll='ls --group-directories-first --color=auto -X -l -h'
+        alias           l1='ls --group-directories-first --color=auto -X -1 -h'
         alias           lk="ls --group-directories-first --color=auto -X -lSr"  # sort by size, biggest last
         alias           lt="ls --group-directories-first --color=auto -X -ltr"  # sort by date, most recent last
+        alias          lsr="tree -Csu"                                          # nice alternative to 'recursive ls'
+        alias           nv="nvim"
+        alias     sizesort='du -s *    | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
+        alias      weechat='weechat-curses'
         alias       volume='alsamixer -g'
         alias       winmnt='sudo mount /dev/sda1 /home/igaray/win -o uid=$(id -u),gid=$(id -g)'
         alias      winumnt='sudo umount /home/igaray/win'
         alias      extumnt='sync; sudo umount /home/igaray/tera'
         alias      usbumnt='sync; sudo umount /home/igaray/usb'
         alias        music='ncmpcpp'
-        alias         wifi='wicd-curses'
-        alias         subl='~/bin/sublime_text/sublime_text/sublime_text'
         alias filenamedate='date +"%Y_%m_%d_%H_%M"'
         alias autodestruct='sudo shutdown -h now'
+        alias   whispervpn='sudo openvpn /etc/openvpn/whisper/client.conf'
+        alias     inakavpn='sudo openvpn /etc/openvpn/inaka/client.conf'
+        alias       review='rbt post --description "$(git log HEAD...origin/master)" --summary "$(git log -1 --pretty=format:%s | head -1)" --testing-done "Common Test Suites" --target-groups="DX-Software" --server=http://review.dssd.com'
         ;;
 esac
 
 ###############################################################################
 # FUNCTIONS
+
+#------------------------------------------------------------------------------#
+# Colors
+#
+# To print success
+# green "Task has been completed"
+# To print error
+# red "The configuration file does not exist"
+# To print warning
+# yellow "You have to use higher version."
+
+NORMAL=$(tput sgr0)
+GREEN=$(tput setaf 2; tput bold)
+YELLOW=$(tput setaf 3)
+RED=$(tput setaf 1)
+
+function red() {
+    echo -e "$RED$*$NORMAL"
+}
+
+function green() {
+    echo -e "$GREEN$*$NORMAL"
+}
+
+function yellow() {
+    echo -e "$YELLOW$*$NORMAL"
+}
 
 #------------------------------------------------------------------------------#
 # Jump Marks
@@ -282,20 +309,30 @@ function fixperm {
 #------------------------------------------------------------------------------#
 # USB mount
 
+# usbmnt
+# usbmnt fs
+# usbmnt fs drive
+# usbmnt fs drive mountpoint
+#
+# fs may be ntfs, fat, ext and defaults to ntfs
+# drive should be b, c, c1, d, d3, etc abd defaults to b1
+# mountpoint should be a directory and defaults to /home/igaray/usb
+
 if [[ $os == "linux" ]]; then
     usbmnt() {
-        # drive should be the b, c, c1, d, d3, etc
-        # defaults to b1
-        # mountpoint should be a directory and defaults to /home/igaray/usb
-        drive=${1:-b1}
-        mountpoint=${2:-/home/igaray/usb}
-        sudo mount /dev/sd$drive $mountpoint -o rw,uid=$(id -u),gid=$(id -g)
-    }
+        fs=${1:-ntfs}
+        drive=${2:-b1}
+        mountpoint=${3:-/home/igaray/usb}
 
-    extmnt() {
-        drive=${1:-b1}
-        mountpoint=${2:-/home/igaray/tera}
-        sudo mount /dev/sd$drive $mountpoint
+        if [[ $fs == ext ]]; then
+            sudo mount /dev/sd$drive $mountpoint
+        elif [[ $fs == fat ]]; then
+            sudo mount /dev/sd$drive $mountpoint -o rw,uid=$(id -u),gid=$(id -g);
+        elif [[ $fs == ntfs ]]; then
+            sudo mount /dev/sd$drive $mountpoint -o rw,uid=$(id -u),gid=$(id -g),fmask=133,dmask=022;
+        else
+            echo Unknown filetype.
+        fi
     }
 fi
 
@@ -308,9 +345,14 @@ if [[ $os == "linux" ]]; then
         dir=$2
         if [ -z $dir ]
         then
-            echo "No directory set, extracting here."
+            echo "No directory set, creating and moving into" $dir
+            ext=$( echo $file | awk -F . '{print $NF}' )
+            dir=$(basename $file .$ext)
+            mkdir $dir
+            mv $file $dir
+            cd $dir
         else
-            echo Directory set, creating and moving into $dir
+            echo "Directory set, creating and moving into" $dir
             mkdir -p $dir
             mv $file $dir
             cd $dir
@@ -367,4 +409,5 @@ echo True humility is the only antidote to shame.
 
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
+
 

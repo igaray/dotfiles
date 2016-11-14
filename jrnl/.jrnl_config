@@ -1,5 +1,5 @@
 {
-  "default_hour": 9, 
+  "default_hour": 0,
   "timeformat": "%Y-%m-%d %H:%M", 
   "linewrap": 79, 
   "encrypt": false, 
@@ -7,8 +7,7 @@
   "default_minute": 0, 
   "highlight": true, 
   "journals": {
-    "default": "~/Dropbox/textfiles/private/journal.txt",
-    "inaka": "~/Dropbox/textfiles/private/inaka.txt"
+    "default": "~/Dropbox/Private/jrnl/journal.txt"
   }, 
   "tagsymbols": "@"
 }
