@@ -181,17 +181,17 @@ function install_zsh() {
   echo $INSTALL_MSG "zsh..."
 
   if [[ $OS == "linux" ]]; then
-    ln -s $DOTFILES/bash/linux/.zlogout ~/.zlogout
-    ln -s $DOTFILES/bash/linux/.zprofile ~/.zprofile
-    ln -s $DOTFILES/bash/linux/.zshenv ~/.zshenv
-    ln -s $DOTFILES/bash/linux/.zshrc ~/.zshrc
+    ln -s $DOTFILES/zsh/linux/.zlogout ~/.zlogout
+    ln -s $DOTFILES/zsh/linux/.zprofile ~/.zprofile
+    ln -s $DOTFILES/zsh/linux/.zshenv ~/.zshenv
+    ln -s $DOTFILES/zsh/linux/.zshrc ~/.zshrc
   fi
 
   if [[ $OS == "darwin" ]]; then
-    ln -s $DOTFILES/bash/osx/.zlogout ~/.zlogout
-    ln -s $DOTFILES/bash/osx/.zprofile ~/.zprofile
-    ln -s $DOTFILES/bash/osx/.zshenv ~/.zshenv
-    ln -s $DOTFILES/bash/osx/.zshrc ~/.zshrc
+    ln -s $DOTFILES/zsh/osx/.zlogout ~/.zlogout
+    ln -s $DOTFILES/zsh/osx/.zprofile ~/.zprofile
+    ln -s $DOTFILES/zsh/osx/.zshenv ~/.zshenv
+    ln -s $DOTFILES/zsh/osx/.zshrc ~/.zshrc
   fi
 }
 
@@ -217,7 +217,7 @@ function install_config() {
   # install_tmux
   # install_vim
   # install_weechat
-  # install_zsh
+  install_zsh
 }
 
 function uninstall_config() {
@@ -234,7 +234,7 @@ function uninstall_config() {
   # uninstall_tmux
   # uninstall_vim
   # uninstall_weechat
-  # uninstall_zsh
+  uninstall_zsh
 }
 
 case $1 in
