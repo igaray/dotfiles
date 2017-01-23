@@ -177,6 +177,19 @@ function uninstall_weechat() {
   rm -f ~/.weechat
 }
 
+function install_xorg() {
+  if [[ $OS == "linux" ]]; then
+    echo $INSTALL_MSG "xorg..."
+  fi
+  
+}
+
+function uninstall_xorg() {
+  if [[ $OS == "linux" ]]; then
+    echo $UNINSTALL_MSG "xorg..."
+  fi
+}
+
 function install_zsh() {
   echo $INSTALL_MSG "zsh..."
 
@@ -217,6 +230,7 @@ function install_config() {
   # install_tmux
   # install_vim
   # install_weechat
+  # install_xorg
   install_zsh
 }
 
@@ -234,6 +248,7 @@ function uninstall_config() {
   # uninstall_tmux
   # uninstall_vim
   # uninstall_weechat
+  # uninstall_xorg
   uninstall_zsh
 }
 

@@ -1,12 +1,12 @@
 [core]
-	name = igaray
-	email = igarai@gmail.com
+    name = igaray
+    email = igarai@gmail.com
     eol = lf
     editor = vim
-	excludesfile = /Users/igaray/.gitignore_global
+    excludesfile = /Users/igaray/.gitignore_global
 [user]
-	name = Iñaki Garay
-	email = igarai@gmail.com
+    name = Iñaki Garay
+    email = igarai@gmail.com
 [color]
     branch = auto
     diff = auto
@@ -14,23 +14,13 @@
     status = auto
 [alias]
     st = status -uall
-	br = branch
-	ci = commit
-	co = checkout
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	l1 = log --color --oneline -5
-	undo = reset --hard HEAD~1
+    br = branch
+    ci = commit
+    co = checkout
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    l1 = log --color --oneline -5
+    undo = reset --hard HEAD~1
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 [push]
-	default = matching
-[branch "master"]
-	rebase = true
-[filter "lfs"]
-	required = true
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+    default = matching

@@ -293,10 +293,9 @@ function marks {
 # and change the ownership to username.groupname of all directory contents.
 
 function fixperm {
-    dir=${1:-"./"}
+    dir=${1:-"."}
     sudo find "$dir" | while read file
     do 
-        echo "$file"
         if [ -d "$file" ]
             then sudo chmod 770 "$file"
             else sudo chmod 660 "$file"
@@ -409,5 +408,6 @@ echo True humility is the only antidote to shame.
 
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
+. /usr/local/erlang/activate
 
-
+[[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
