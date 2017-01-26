@@ -347,8 +347,11 @@ case $1 in
   ""|"help")
     usage
     ;;
-  *)
-    echo "Error! Unrecognized option:" $1
-    echo ""
+  ""|"-h"|"--help"|"help")
     usage
+    ;;
+  *)
+    echo "Error: unrecognized option:" $1 "\n"
+    usage
+    exit 1
 esac
