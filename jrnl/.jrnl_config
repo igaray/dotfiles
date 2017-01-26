@@ -7,7 +7,7 @@
   "default_minute": 0, 
   "highlight": true, 
   "journals": {
-    "default": "~/Dropbox/Private/jrnl/journal.txt"
+    "default": "~/SpiderOak Hive/kttk/jrnl/journal.txt"
   }, 
   "tagsymbols": "@"
 }
