@@ -1,9 +1,6 @@
 #!/bin/bash
-# Usage:
-# ./dotfiles.sh install
-# ./dotfiles.sh uninstall
 
-DOTFILES=${2:-$(pwd)} # dotfiles repo location defaults to current directory
+DOTFILES=$(pwd) # dotfiles repo location defaults to current directory
 OS=$OSTYPE
 if [[ ${OS:0:6} == "darwin" ]]; then
     OS="darwin"
@@ -11,17 +8,32 @@ elif [[ ${OS:0:5} == "linux" ]]; then
     OS="linux"
 fi
 
-INSTALL_MSG="Installing config files for "
-UNINSTALL_MSG="Uninstalling config files for "
+LINK_MSG="Linking config files for"
+UNLINK_MSG="Unlinking config files for"
 
 # DEBUG
-# echo COMMAND=$1
-# echo HOME=$HOME
-# echo DOTFILES=$DOTFILES
-# echo OS=$OS
+#echo HOME=$HOME
+#echo DOTFILES=$DOTFILES
+#echo OS=$OS
+#echo ARG1=$1
+#echo ARG2=$2
 
-function install_bash() {
-  echo $INSTALL_MSG "bash..."
+function usage() {
+  echo "Usage:"
+  echo "    ./dotfiles.sh help"
+  echo "    ./dotfiles.sh deps OS"
+  echo "    ./dotfiles.sh link TARGET"
+  echo "    ./dotfiles.sh unlink TARGET"
+  echo ""
+  echo "OS may be one of: "
+  echo "    arch | debian | void | darwin"
+  echo ""
+  echo "TARGET may be one of:"
+  echo "    all | bash | git | htop | jrnl | mc | taskwarrior | tmux | vim | weechat | xorg"
+}
+
+function link_bash() {
+  echo $LINK_MSG "bash..."
 
   if [[ $OS == "linux" ]]; then
     ln -s $DOTFILES/bash/linux/.bashrc ~/.bashrc
@@ -36,58 +48,48 @@ function install_bash() {
   fi
 }
 
-function uninstall_bash() {
-  echo $UNINSTALL_MSG "bash..."
+function unlink_bash() {
+  echo $UNLINK_MSG "bash..."
   rm -f ~/.bashrc
   rm -f ~/.bash_logout
   rm -f ~/.bash_profile
 }
 
-function install_git() {
-  echo $INSTALL_MSG "git..."
+function link_git() {
+  echo $LINK_MSG "git..."
   ln -s $DOTFILES/git/.gitconfig ~/.gitconfig
   ln -s $DOTFILES/git/.gitignore_global ~/.gitignore_global
 }
 
-function uninstall_git() {
-  echo $UNINSTALL_MSG "git..."
+function unlink_git() {
+  echo $UNLINK_MSG "git..."
   rm -f ~/.gitconfig
   rm -f ~/.gitignore_global
 }
 
-function install_gpg() {
-  echo $INSTALL_MSG "gpg..."
-  cp -R ~/Dropbox/Private/gpg/.gnupg ~/.gnupg
-}
-
-function uninstall_gpg() {
-  echo $UNINSTALL_MSG "gpg..."
-  rm -rf ~/.gnupg
-}
-
-function install_htop() {
-  echo $INSTALL_MSG "htop..."
+function link_htop() {
+  echo $LINK_MSG "htop..."
   mkdir -p ~/.config/htop
   ln -s $DOTFILES/htop/htoprc ~/.config/htop/htoprc
 }
 
-function uninstall_htop() {
-  echo $UNINSTALL_MSG "htop..."
-  rm -f ~/.config/htop
+function unlink_htop() {
+  echo $UNLINK_MSG "htop..."
+  rm -rf ~/.config/htop
 }
 
-function install_jrnl() {
-  echo $INSTALL_MSG "jrnl..."
+function link_jrnl() {
+  echo $LINK_MSG "jrnl..."
   ln -s $DOTFILES/jrnl/.jrnl_config ~/.jrnl_config
 }
 
-function uninstall_jrnl() {
-  echo $UNINSTALL_MSG "jrnl..."
+function unlink_jrnl() {
+  echo $UNLINK_MSG "jrnl..."
   rm -f ~/.jrnl_config
 }
 
-function install_mc() {
-  echo $INSTALL_MSG "mc..."
+function link_mc() {
+  echo $LINK_MSG "mc..."
   mkdir -p ~/.config/mc
   ln -s $DOTFILES/mc/ini ~/.config/mc/ini
   ln -s $DOTFILES/mc/mc.ext ~/.config/mc/mc.ext
@@ -95,103 +97,90 @@ function install_mc() {
   ln -s $DOTFILES/mc/skins ~/.config/mc/skins
 }
 
-function uninstall_mc() {
-  echo $UNINSTALL_MSG "mc..."
-  rm -f ~/.config/mc
+function unlink_mc() {
+  echo $UNLINK_MSG "mc..."
+  rm -rf ~/.config/mc
 }
 
-function install_pass() {
-  echo $INSTALL_MSG "pass..."
-  ln -s ~/Dropbox/Private/pass/.password-store ~/.password-store
-}
-
-function uninstall_pass() {
-  echo $UNINSTALL_MSG "pass..."
-  rm -f .password-store
-}
-
-function install_ssh() {
-  echo $INSTALL_MSG "ssh..."
-  cp -R ~/Dropbox/private/ssh/.ssh ~/.ssh
-  chmod 600 ~/.ssh/*
-  chmod 700 ~/.ssh
-}
-
-function uninstall_ssh() {
-  echo $UNINSTALL_MSG "ssh..."
-  rm -rf ~/.ssh
-}
-
-function install_task() {
-  echo $INSTALL_MSG "task..."
+function link_taskwarrior() {
+  echo $LINK_MSG "taskwarrior..."
   ln -s $DOTFILES/task/.taskrc ~/.taskrc
 }
 
-function uninstall_task() {
-  echo $UNINSTALL_MSG "task..."
+function unlink_taskwarrior() {
+  echo $UNLINK_MSG "taskwarrior..."
   rm -f ~/.taskrc
 }
 
-function install_tmsu() {
-  echo $INSTALL_MSG "tmsu..."
-  ln -s ~/Dropbox/Private/tmsu/.tmsu ~/.tmsu
+function link_tmux() {
+  echo $LINK_MSG "tmux..."
+  ln -s $DOTFILES/tmux/.tmux.conf ~/.tmux.conf
 }
 
-function uninstall_tmsu() {
-  echo $UNINSTALL_MSG "tmsu..."
-  rm -f ~/.tmsu
+function unlink_tmux() {
+  echo $UNLINK_MSG "tmux..."
+  rm -f ~/.tmux.conf
 }
 
-function install_tmux() {
-  echo $INSTALL_MSG "tmux..."
-  ln -s $DOTFILES/tmux/.tmux_config ~/.tmux_conf
-}
-
-function uninstall_tmux() {
-  echo $UNINSTALL_MSG "tmux..."
-  rm -f ~/.tmux_conf
-}
-
-function install_vim() {
-  echo $INSTALL_MSG "vim..."
+function link_vim() {
+  echo $LINK_MSG "vim..."
   mkdir -p ~/.vim/{backupdir,recoverydir,undodir}
   ln -s $DOTFILES/vim/.vimrc ~/.vimrc
   ln -s $DOTFILES/vim/.vim/autoload ~/.vim/autoload
   ln -s $DOTFILES/vim/.vim/bundle ~/.vim/bundle
 }
 
-function uninstall_vim() {
-  echo $UNINSTALL_MSG "vim..."
+function unlink_vim() {
+  echo $UNLINK_MSG "vim..."
   rm -f ~/.vimrc
   rm -rf ~/.vim
 }
 
-function install_weechat() {
-  echo $INSTALL_MSG "weechat..."
+function link_weechat() {
+  echo $LINK_MSG "weechat..."
   mkdir -p ~/.weechat
-  # ln -s $DOTFILES/weechat/.weechat ~/.weechat
+  ln -s $DOTFILES/weechat/alias.conf ~/.weechat/alias.conf
+  ln -s $DOTFILES/weechat/aspell.conf ~/.weechat/aspell.conf
+  ln -s $DOTFILES/weechat/charset.conf ~/.weechat/charset.conf
+  ln -s $DOTFILES/weechat/exec.conf ~/.weechat/exec.conf
+  ln -s $DOTFILES/weechat/irc.conf ~/.weechat/irc.conf
+  ln -s $DOTFILES/weechat/logger.conf ~/.weechat/logger.conf
+  ln -s $DOTFILES/weechat/plugins.conf ~/.weechat/plugins.conf
+  ln -s $DOTFILES/weechat/relay.conf ~/.weechat/relay.conf
+  ln -s $DOTFILES/weechat/rmodifier.conf ~/.weechat/rmodifier.conf
+  ln -s $DOTFILES/weechat/script.conf ~/.weechat/script.conf
+  ln -s $DOTFILES/weechat/sec.conf ~/.weechat/sec.conf
+  ln -s $DOTFILES/weechat/trigger.conf ~/.weechat/trigger.conf
+  ln -s $DOTFILES/weechat/weechat.conf ~/.weechat/weechat.conf
+  ln -s $DOTFILES/weechat/xfer.conf ~/.weechat/xfer.conf
+  ln -s $DOTFILES/weechat/perl ~/.weechat/perl
+  ln -s $DOTFILES/weechat/script ~/.weechat/script
+  ln -s $DOTFILES/weechat/ssl ~/.weechat/ssl
 }
 
-function uninstall_weechat() {
-  echo $UNINSTALL_MSG "weechat..."
-  rm -f ~/.weechat
+function unlink_weechat() {
+  echo $UNLINK_MSG "weechat..."
+  rm -rf ~/.weechat
 }
 
-function install_xorg() {
+function link_xorg() {
   if [[ $OS == "linux" ]]; then
-    echo $INSTALL_MSG "xorg..."
+    echo $LINK_MSG "xorg..."
+    ln -s $DOTFILES/xorg/.Xdefaults ~/.Xdefaults
+    ln -s $DOTFILES/xorg/.xinitrc ~/.xinitrc
   fi
-  
 }
 
-function uninstall_xorg() {
+function unlink_xorg() {
   if [[ $OS == "linux" ]]; then
-    echo $UNINSTALL_MSG "xorg..."
+    echo $UNLINK_MSG "xorg..."
+    rm -f ~/.Xdefaults
+    rm -f ~/.xinitrc
   fi
 }
 
-function install_zsh() {
-  echo $INSTALL_MSG "zsh..."
+function link_zsh() {
+  echo $LINK_MSG "zsh..."
 
   if [[ $OS == "linux" ]]; then
     ln -s $DOTFILES/zsh/linux/.zlogout ~/.zlogout
@@ -208,55 +197,158 @@ function install_zsh() {
   fi
 }
 
-function uninstall_zsh() {
-  echo $UNINSTALL_MSG "zsh..."
+function unlink_zsh {
+  echo $UNLINK_MSG "zsh..."
   rm -f ~/.zlogout
   rm -f ~/.zprofile
   rm -f ~/.zshenv
   rm -f ~/.zshrc
 }
 
-function install_config() {
-  install_bash
-  # install_git
-  # install_gpg
-  # install_htop
-  # install_jrnl
-  # install_mc
-  # install_pass
-  # install_ssh
-  # install_task
-  # install_tmsu
-  # install_tmux
-  # install_vim
-  # install_weechat
-  # install_xorg
-  install_zsh
+function link_config {
+  case $1 in
+    "all")
+      link_bash
+      link_git
+      link_htop
+      link_jrnl
+      link_mc
+      link_taskwarrior
+      link_tmux
+      link_vim
+      link_weechat
+      link_xorg
+      link_zsh
+      ;;
+    "bash")
+      link_bash
+      ;;
+    "git")
+      link_git
+      ;;
+    "htop")
+      link_htop
+      ;;
+    "jrnl")
+      link_jrnl
+      ;;
+    "mc")
+      link_mc
+      ;;
+    "taskwarrior")
+      link_taskwarrior
+      ;;
+    "tmux")
+      link_tmux
+      ;;
+    "vim")
+      link_vim
+      ;;
+    "weechat")
+      link_weechat
+      ;;
+    "xorg")
+      link_xorg
+      ;;
+    "zsh")
+      link_zsh
+      ;;
+  esac
 }
 
-function uninstall_config() {
-  uninstall_bash
-  # uninstall_git
-  # uninstall_gpg
-  # uninstall_htop
-  # uninstall_jrnl
-  # uninstall_mc
-  # uninstall_pass
-  # uninstall_ssh
-  # uninstall_task
-  # uninstall_tmsu
-  # uninstall_tmux
-  # uninstall_vim
-  # uninstall_weechat
-  # uninstall_xorg
-  uninstall_zsh
+function unlink_config {
+  case $1 in
+    "all")
+      unlink_bash
+      unlink_git
+      unlink_htop
+      unlink_jrnl
+      unlink_mc
+      unlink_taskwarrior
+      unlink_tmux
+      unlink_vim
+      unlink_weechat
+      unlink_xorg
+      unlink_zsh
+      ;;
+    "bash")
+      unlink_bash
+      ;;
+    "git")
+      unlink_git
+      ;;
+    "htop")
+      unlink_htop
+      ;;
+    "jrnl")
+      unlink_jrnl
+      ;;
+    "mc")
+      unlink_mc
+      ;;
+    "taskwarrior")
+      unlink_taskwarrior
+      ;;
+    "tmux")
+      unlink_tmux
+      ;;
+    "vim")
+      unlink_vim
+      ;;
+    "weechat")
+      unlink_weechat
+      ;;
+    "xorg")
+      unlink_xorg
+      ;;
+    "zsh")
+      unlink_zsh
+      ;;
+  esac
+}
+
+function install_deps {
+  case $1 in
+    "arch")
+      echo "Installing dependencies for" $1
+      pacman -S git gnupg htop mc pass taskwarrior tmux vim weechat zsh
+      ;;
+    "debian")
+      echo "Installing dependencies for" $1
+      apt-get install git gnupg htop mc pass taskwarrior tmux vim weechat zsh python-pip
+      pip install jrnl
+      ;;
+    "void")
+      echo "Installing dependencies for" $1
+      xbps install git gnupg htop mc pass taskwarrior tmux vim weechat zsh
+      ;;
+    "darwin")
+      echo "Installing dependencies for" $1
+      brew install git gnupg htop mc pass task tmux vim weechat zsh
+      ;;
+    *)
+      echo "Error! Unrecognized option:" $1
+      echo ""
+      usage
+      ;; 
+  esac
 }
 
 case $1 in
-  "install")
-    install_config
+  "deps")
+    install_deps $2
     ;;
-  "uninstall")
-    uninstall_config
+  "link")
+    link_config $2
     ;;
+  "unlink")
+    unlink_config $2
+    ;;
+  ""|"help")
+    usage
+    ;;
+  *)
+    echo "Error! Unrecognized option:" $1
+    echo ""
+    usage
 esac
