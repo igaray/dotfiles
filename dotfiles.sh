@@ -29,7 +29,7 @@ function usage() {
   echo "    arch | debian | void | darwin"
   echo ""
   echo "TARGET may be one of:"
-  echo "    all | bash | git | htop | jrnl | mc | taskwarrior | tmux | vim | weechat | xorg"
+  echo "    all | bash | git | htop | mc | tmux | vim | weechat | xorg"
 }
 
 function link_bash() {
@@ -78,16 +78,6 @@ function unlink_htop() {
   rm -rf ~/.config/htop
 }
 
-function link_jrnl() {
-  echo $LINK_MSG "jrnl..."
-  ln -s $DOTFILES/jrnl/.jrnl_config ~/.jrnl_config
-}
-
-function unlink_jrnl() {
-  echo $UNLINK_MSG "jrnl..."
-  rm -f ~/.jrnl_config
-}
-
 function link_mc() {
   echo $LINK_MSG "mc..."
   mkdir -p ~/.config/mc
@@ -100,16 +90,6 @@ function link_mc() {
 function unlink_mc() {
   echo $UNLINK_MSG "mc..."
   rm -rf ~/.config/mc
-}
-
-function link_taskwarrior() {
-  echo $LINK_MSG "taskwarrior..."
-  ln -s $DOTFILES/task/.taskrc ~/.taskrc
-}
-
-function unlink_taskwarrior() {
-  echo $UNLINK_MSG "taskwarrior..."
-  rm -f ~/.taskrc
 }
 
 function link_tmux() {
@@ -211,9 +191,7 @@ function link_config {
       link_bash
       link_git
       link_htop
-      link_jrnl
       link_mc
-      link_taskwarrior
       link_tmux
       link_vim
       link_weechat
@@ -229,14 +207,8 @@ function link_config {
     "htop")
       link_htop
       ;;
-    "jrnl")
-      link_jrnl
-      ;;
     "mc")
       link_mc
-      ;;
-    "taskwarrior")
-      link_taskwarrior
       ;;
     "tmux")
       link_tmux
@@ -262,9 +234,7 @@ function unlink_config {
       unlink_bash
       unlink_git
       unlink_htop
-      unlink_jrnl
       unlink_mc
-      unlink_taskwarrior
       unlink_tmux
       unlink_vim
       unlink_weechat
@@ -280,14 +250,8 @@ function unlink_config {
     "htop")
       unlink_htop
       ;;
-    "jrnl")
-      unlink_jrnl
-      ;;
     "mc")
       unlink_mc
-      ;;
-    "taskwarrior")
-      unlink_taskwarrior
       ;;
     "tmux")
       unlink_tmux
