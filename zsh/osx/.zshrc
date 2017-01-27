@@ -210,7 +210,8 @@ case $os in
         alias           ..='cd ..'
         alias           ls='ls -G'
         alias           la='ls -G -A'
-        alias            l='ls -G -l -h'
+        alias           ll='ls -G -l -h'
+        alias           l1='ls -1'
         ;;
     "linux") 
         alias           ..='cd ..'
