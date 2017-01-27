@@ -279,7 +279,7 @@ function install_deps {
       ;;
     "debian")
       echo "Installing dependencies for" $1
-      apt-get install git gnupg htop mc pass taskwarrior tmux vim weechat zsh python-pip
+      apt-get install git gnupg pinentry-curses htop mc pass taskwarrior tmux vim weechat zsh python-pip
       pip install jrnl
       ;;
     "void")
