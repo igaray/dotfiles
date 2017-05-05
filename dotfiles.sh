@@ -21,15 +21,11 @@ UNLINK_MSG="Unlinking config files for"
 function usage() {
   echo "Usage:"
   echo "    ./dotfiles.sh help"
-  echo "    ./dotfiles.sh deps OS"
   echo "    ./dotfiles.sh link TARGET"
   echo "    ./dotfiles.sh unlink TARGET"
   echo ""
-  echo "OS may be one of: "
-  echo "    arch | debian | void | darwin"
-  echo ""
   echo "TARGET may be one of:"
-  echo "    all | bash | git | htop | mc | tmux | vim | weechat | xorg"
+  echo "    all | bash | git | htop | i3 | mc | tmux | vim | weechat | xorg"
 }
 
 function link_bash() {
@@ -76,6 +72,17 @@ function link_htop() {
 function unlink_htop() {
   echo $UNLINK_MSG "htop..."
   rm -rf ~/.config/htop
+}
+
+function link_i3() {
+  echo $LINK_MSG "i3..."
+  mkdir -p ~/.config/i3
+  ln -s $DOTFILES/i3/config ~/.config/i3/config
+}
+
+function unlink_i3() {
+  echo $UNLINK_MSG "i3..."
+  rm -rf ~/.config/i3
 }
 
 function link_mc() {
@@ -191,6 +198,7 @@ function link_config {
       link_bash
       link_git
       link_htop
+      link_i3
       link_mc
       link_tmux
       link_vim
@@ -206,6 +214,9 @@ function link_config {
       ;;
     "htop")
       link_htop
+      ;;
+    "i3")
+      link_i3
       ;;
     "mc")
       link_mc
@@ -234,6 +245,7 @@ function unlink_config {
       unlink_bash
       unlink_git
       unlink_htop
+      unlink_i3
       unlink_mc
       unlink_tmux
       unlink_vim
@@ -249,6 +261,9 @@ function unlink_config {
       ;;
     "htop")
       unlink_htop
+      ;;
+    "i3")
+      unlink_i3
       ;;
     "mc")
       unlink_mc
@@ -271,37 +286,7 @@ function unlink_config {
   esac
 }
 
-function install_deps {
-  case $1 in
-    "arch")
-      echo "Installing dependencies for" $1
-      pacman -S git gnupg htop mc pass taskwarrior tmux vim weechat zsh
-      ;;
-    "debian")
-      echo "Installing dependencies for" $1
-      apt-get install git gnupg pinentry-curses htop mc pass taskwarrior tmux vim weechat zsh python-pip
-      pip install jrnl
-      ;;
-    "void")
-      echo "Installing dependencies for" $1
-      xbps install git gnupg htop mc pass taskwarrior tmux vim weechat zsh
-      ;;
-    "darwin")
-      echo "Installing dependencies for" $1
-      brew install git gnupg htop mc pass task tmux vim weechat zsh
-      ;;
-    *)
-      echo "Error! Unrecognized option:" $1
-      echo ""
-      usage
-      ;; 
-  esac
-}
-
 case $1 in
-  "deps")
-    install_deps $2
-    ;;
   "link")
     link_config $2
     ;;
