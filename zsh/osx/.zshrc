@@ -21,15 +21,21 @@ fi
 ###############################################################################
 # VARIABLES
 
-# set $PATH
-export PATH=$PATH:./:$HOME/bin
-export EDITOR=vim
+# ERLANG
+. /usr/local/erlang/activate
+
+# ELIXIR
+[[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
 
 # RVM
 if [[ $os == "darwin" ]]; then
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
     export PATH=$PATH:$HOME/bin:$HOME/.rvm/bin
 fi
+
+# PATH
+export PATH=.:$HOME/bin:$PATH
+export EDITOR=vim
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -409,6 +415,3 @@ echo True humility is the only antidote to shame.
 
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
-. /usr/local/erlang/activate
-
-[[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
