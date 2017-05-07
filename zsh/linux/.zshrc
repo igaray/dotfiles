@@ -6,30 +6,11 @@ elif [[ ${os:0:5} == "linux" ]]; then
     os="linux"
 fi
 
-#case $os in
-#    "darwin") 
-#        echo "1"
-#        ;;
-#    "linux") 
-#        echo "2"
-#        ;;
-#esac
-
-#if [[ $os == "" ]]; then
-#fi
-
 ###############################################################################
 # VARIABLES
 
-# set $PATH
-export PATH=$PATH:./:$HOME/bin
-export EDITOR=vim
-
-# RVM
-if [[ $os == "darwin" ]]; then
-    [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-    export PATH=$PATH:$HOME/bin:$HOME/.rvm/bin
-fi
+export PATH=./:$HOME/.local/bin:$PATH
+export EDITOR=nvim
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -128,22 +109,6 @@ setopt prompt_subst
 # prompt theme
  autoload -U promptinit
  promptinit
-#prompt adam1
-#prompt adam2
-#prompt bart
-#prompt bigfade
-#prompt clint
-#prompt elite
-#prompt elite2
-#prompt fade
-#prompt fire
-#prompt off
-#prompt oliver
-#prompt pws
-#prompt redhat
-#prompt suse
-#prompt walters
-#prompt zefram
 
 prompt_igaray_precmd () {
     setopt localoptions
@@ -205,38 +170,18 @@ $p_end"
 ###############################################################################
 # ALIAS
 
-case $os in
-    "darwin") 
-        alias           ..='cd ..'
-        alias           ls='ls -G'
-        alias           la='ls -G -A'
-        alias            l='ls -G -l -h'
-        ;;
-    "linux") 
-        alias           ..='cd ..'
-        alias           ls='ls --group-directories-first --color=auto -X'
-        alias           la='ls --group-directories-first --color=auto -X -a'
-        alias           ll='ls --group-directories-first --color=auto -X -l -h'
-        alias           l1='ls --group-directories-first --color=auto -X -1 -h'
-        alias           lk="ls --group-directories-first --color=auto -X -lSr"  # sort by size, biggest last
-        alias           lt="ls --group-directories-first --color=auto -X -ltr"  # sort by date, most recent last
-        alias          lsr="tree -Csu"                                          # nice alternative to 'recursive ls'
-        alias           nv="nvim"
-        alias     sizesort='du -s *    | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
-        alias      weechat='weechat-curses'
-        alias       volume='alsamixer -g'
-        alias       winmnt='sudo mount /dev/sda1 /home/igaray/win -o uid=$(id -u),gid=$(id -g)'
-        alias      winumnt='sudo umount /home/igaray/win'
-        alias      extumnt='sync; sudo umount /home/igaray/tera'
-        alias      usbumnt='sync; sudo umount /home/igaray/usb'
-        alias        music='ncmpcpp'
-        alias filenamedate='date +"%Y_%m_%d_%H_%M"'
-        alias autodestruct='sudo shutdown -h now'
-        alias   whispervpn='sudo openvpn /etc/openvpn/whisper/client.conf'
-        alias     inakavpn='sudo openvpn /etc/openvpn/inaka/client.conf'
-        alias       review='rbt post --description "$(git log HEAD...origin/master)" --summary "$(git log -1 --pretty=format:%s | head -1)" --testing-done "Common Test Suites" --target-groups="DX-Software" --server=http://review.dssd.com'
-        ;;
-esac
+alias           ..='cd ..'
+alias           ls='ls --group-directories-first --color=auto -X'
+alias           la='ls --group-directories-first --color=auto -X -a'
+alias           ll='ls --group-directories-first --color=auto -X -l -h'
+alias           l1='ls --group-directories-first --color=auto -X -1 -h'
+alias           lk="ls --group-directories-first --color=auto -X -lSr"  # sort by size, biggest last
+alias           lt="ls --group-directories-first --color=auto -X -ltr"  # sort by date, most recent last
+alias           lr="tree -Csu"                                          # nice alternative to 'recursive ls'
+alias           nv="nvim"
+alias           ss='du -s * | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
+alias      weechat='weechat-curses'
+alias filenamedate='date +"%Y_%m_%d_%H_%M"'
 
 ###############################################################################
 # FUNCTIONS

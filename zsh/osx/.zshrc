@@ -6,30 +6,11 @@ elif [[ ${os:0:5} == "linux" ]]; then
     os="linux"
 fi
 
-#case $os in
-#    "darwin") 
-#        echo "1"
-#        ;;
-#    "linux") 
-#        echo "2"
-#        ;;
-#esac
-
-#if [[ $os == "" ]]; then
-#fi
-
 ###############################################################################
 # VARIABLES
 
-# set $PATH
-export PATH=$PATH:./:$HOME/bin
-export EDITOR=vim
-
-# RVM
-if [[ $os == "darwin" ]]; then
-    [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-    export PATH=$PATH:$HOME/bin:$HOME/.rvm/bin
-fi
+export PATH=./:$HOME/.local/bin:$PATH
+export EDITOR=nvim
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -73,50 +54,6 @@ COMPLETION_WAITING_DOTS="true"
 # because it's required for share_history.
  setopt append_history
 
-#if [[ $os == "linux" ]]; then
-#    # create a zkbd compatible hash;
-#    # to add other keys to this hash, see: man 5 terminfo
-#    typeset -A key
-#    key[Home]=${terminfo[khome]}
-#    key[End]=${terminfo[kend]}
-#    key[Insert]=${terminfo[kich1]}
-#    key[Delete]=${terminfo[kdch1]}
-#    key[Up]=${terminfo[kcuu1]}
-#    key[Down]=${terminfo[kcud1]}
-#    key[Left]=${terminfo[kcub1]}
-#    key[Right]=${terminfo[kcuf1]}
-#    key[PageUp]=${terminfo[kpp]}
-#    key[PageDown]=${terminfo[knp]}
-#
-#    # setup key accordingly
-#    [[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
-#    [[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
-#    [[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
-#    [[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
-#    [[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
-#    [[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
-#    [[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
-#    [[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
-#
-#    # Finally, make sure the terminal is in application mode, when zle is
-#    # active. Only then are the values from $terminfo valid.
-#
-#    if [[ -n ${terminfo[smkx]} ]] && [[ -n ${terminfo[rmkx]} ]]; then 
-#        function zle-line-init () {
-#            echoti smkx
-#        }
-#        function zle-line-finish () {
-#            echoti rmkx
-#        }
-#        zle -N zle-line-init
-#        zle -N zle-line-finish
-#    fi
-#
-#    # only show past commands which start with the current input
-#    bindkey "^[[A" history-beginning-search-backward
-#    bindkey "^[[B" history-beginning-search-forward
-#fi
-
 ###############################################################################
 # THEME
 
@@ -128,22 +65,6 @@ setopt prompt_subst
 # prompt theme
  autoload -U promptinit
  promptinit
-#prompt adam1
-#prompt adam2
-#prompt bart
-#prompt bigfade
-#prompt clint
-#prompt elite
-#prompt elite2
-#prompt fade
-#prompt fire
-#prompt off
-#prompt oliver
-#prompt pws
-#prompt redhat
-#prompt suse
-#prompt walters
-#prompt zefram
 
 prompt_igaray_precmd () {
     setopt localoptions
@@ -205,39 +126,16 @@ $p_end"
 ###############################################################################
 # ALIAS
 
-case $os in
-    "darwin") 
-        alias           ..='cd ..'
-        alias           ls='ls -G'
-        alias           la='ls -G -A'
-        alias           ll='ls -G -l -h'
-        alias           l1='ls -1'
-        ;;
-    "linux") 
-        alias           ..='cd ..'
-        alias           ls='ls --group-directories-first --color=auto -X'
-        alias           la='ls --group-directories-first --color=auto -X -a'
-        alias           ll='ls --group-directories-first --color=auto -X -l -h'
-        alias           l1='ls --group-directories-first --color=auto -X -1 -h'
-        alias           lk="ls --group-directories-first --color=auto -X -lSr"  # sort by size, biggest last
-        alias           lt="ls --group-directories-first --color=auto -X -ltr"  # sort by date, most recent last
-        alias          lsr="tree -Csu"                                          # nice alternative to 'recursive ls'
-        alias           nv="nvim"
-        alias     sizesort='du -s *    | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
-        alias      weechat='weechat-curses'
-        alias       volume='alsamixer -g'
-        alias       winmnt='sudo mount /dev/sda1 /home/igaray/win -o uid=$(id -u),gid=$(id -g)'
-        alias      winumnt='sudo umount /home/igaray/win'
-        alias      extumnt='sync; sudo umount /home/igaray/tera'
-        alias      usbumnt='sync; sudo umount /home/igaray/usb'
-        alias        music='ncmpcpp'
-        alias filenamedate='date +"%Y_%m_%d_%H_%M"'
-        alias autodestruct='sudo shutdown -h now'
-        alias   whispervpn='sudo openvpn /etc/openvpn/whisper/client.conf'
-        alias     inakavpn='sudo openvpn /etc/openvpn/inaka/client.conf'
-        alias       review='rbt post --description "$(git log HEAD...origin/master)" --summary "$(git log -1 --pretty=format:%s | head -1)" --testing-done "Common Test Suites" --target-groups="DX-Software" --server=http://review.dssd.com'
-        ;;
-esac
+alias           ..='cd ..'
+alias           ls='ls -G'
+alias           la='ls -G -A'
+alias           ll='ls -G -l -h'
+alias           l1='ls -1'
+alias           lr="tree -Csu"
+alias           nv="nvim"
+alias           ss='du -s * | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
+alias      weechat='weechat-curses'
+alias filenamedate='date +"%Y_%m_%d_%H_%M"'
 
 ###############################################################################
 # FUNCTIONS
@@ -307,80 +205,6 @@ function fixperm {
 }
 
 #------------------------------------------------------------------------------#
-# USB mount
-
-# usbmnt
-# usbmnt fs
-# usbmnt fs drive
-# usbmnt fs drive mountpoint
-#
-# fs may be ntfs, fat, ext and defaults to ntfs
-# drive should be b, c, c1, d, d3, etc abd defaults to b1
-# mountpoint should be a directory and defaults to /home/igaray/usb
-
-if [[ $os == "linux" ]]; then
-    usbmnt() {
-        fs=${1:-ntfs}
-        drive=${2:-b1}
-        mountpoint=${3:-/home/igaray/usb}
-
-        if [[ $fs == ext ]]; then
-            sudo mount /dev/sd$drive $mountpoint
-        elif [[ $fs == fat ]]; then
-            sudo mount /dev/sd$drive $mountpoint -o rw,uid=$(id -u),gid=$(id -g);
-        elif [[ $fs == ntfs ]]; then
-            sudo mount /dev/sd$drive $mountpoint -o rw,uid=$(id -u),gid=$(id -g),fmask=133,dmask=022;
-        else
-            echo Unknown filetype.
-        fi
-    }
-fi
-
-#------------------------------------------------------------------------------#
-# Intelligent extract
-
-if [[ $os == "linux" ]]; then
-    extract() {
-        file=$1
-        dir=$2
-        if [ -z $dir ]
-        then
-            echo "No directory set, creating and moving into" $dir
-            ext=$( echo $file | awk -F . '{print $NF}' )
-            dir=$(basename $file .$ext)
-            mkdir $dir
-            mv $file $dir
-            cd $dir
-        else
-            echo "Directory set, creating and moving into" $dir
-            mkdir -p $dir
-            mv $file $dir
-            cd $dir
-        fi
-        if [ -f $1 ] ; then
-            case $1 in
-                *.tar.bz2)   tar xvjf $file    ;;
-                *.tar.gz)    tar xvzf $file    ;;
-                *.tar.xz)    tar xvJf $file    ;;
-                *.bz2)       bunzip2 $file     ;;
-                *.rar)       unrar x $file     ;;
-                *.gz)        gunzip $file      ;;
-                *.tar)       tar xvf $file     ;;
-                *.tbz2)      tar xvjf $file    ;;
-                *.tgz)       tar xvzf $file    ;;
-                *.zip)       unzip $file       ;;
-                *.Z)         uncompress $file  ;;
-                *.7z)        7z x $file        ;;
-                *.jar)       unzip $file       ;;
-                *)           echo "don't know how to extract '$file'..." ;;
-            esac
-        else
-            echo "'$1' is not a valid file!"
-        fi
-    }
-fi
-
-#------------------------------------------------------------------------------#
 # Copy with progres indicator
 
 function cpp() {
@@ -402,6 +226,12 @@ function cpp() {
 }
 
 ###############################################################################
+# ERLANG & ELIXIR
+. /usr/local/erlang/activate
+
+[[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
+
+###############################################################################
 # MOTD
 
 echo Pride is not the opposite of shame, but its source.
@@ -409,6 +239,3 @@ echo True humility is the only antidote to shame.
 
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
-. /usr/local/erlang/activate
-
-[[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
