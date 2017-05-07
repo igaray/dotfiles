@@ -20,7 +20,7 @@
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     l1 = log --color --oneline -5
     undo = reset --hard HEAD~1
-[difftool "sourcetree"]
-    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 [push]
     default = matching
+[status]
+    short = true

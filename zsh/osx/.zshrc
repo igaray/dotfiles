@@ -7,15 +7,20 @@ elif [[ ${os:0:5} == "linux" ]]; then
 fi
 
 ###############################################################################
-# VARIABLES
+# ENVIRONMENT VARIABLES
 
 export PATH=./:$HOME/.local/bin:$PATH
 export EDITOR=nvim
+export HISTFILE=~/.histfile
+export HISTSIZE=1000
+export SAVEHIST=1000
+export COMPLETION_WAITING_DOTS="true"
 
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-COMPLETION_WAITING_DOTS="true"
+# ERLANG
+. /usr/local/erlang/activate
+
+# ELIXIR
+[[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
 
 ###############################################################################
 # OPTIONS
@@ -224,12 +229,6 @@ function cpp() {
          }
          END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
 }
-
-###############################################################################
-# ERLANG & ELIXIR
-. /usr/local/erlang/activate
-
-[[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
 
 ###############################################################################
 # MOTD

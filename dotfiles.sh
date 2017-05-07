@@ -293,9 +293,6 @@ case $1 in
   "unlink")
     unlink_config $2
     ;;
-  ""|"help")
-    usage
-    ;;
   ""|"-h"|"--help"|"help")
     usage
     ;;
