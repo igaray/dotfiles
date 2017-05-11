@@ -25,7 +25,7 @@ function usage() {
   echo "    ./dotfiles.sh unlink TARGET"
   echo ""
   echo "TARGET may be one of:"
-  echo "    all | bash | git | htop | i3 | mc | tmux | vim | weechat | xorg"
+  echo "    all | bash | git | emacs | htop | i3 | kak | mc | tmux | vim | weechat | xorg"
 }
 
 function link_bash() {
@@ -63,6 +63,16 @@ function unlink_git() {
   rm -f ~/.gitignore_global
 }
 
+function link_emacs() {
+  echo $LINK_MSG "emacs..."
+  ln -s $DOTFILES/emacs/.emacs.d ~/.emacs.d
+}
+
+function unlink_emacs() {
+  echo $UNLINK_MSG "emacs..."
+  rm -f ~/.emacs.d
+}
+
 function link_htop() {
   echo $LINK_MSG "htop..."
   mkdir -p ~/.config/htop
@@ -83,6 +93,17 @@ function link_i3() {
 function unlink_i3() {
   echo $UNLINK_MSG "i3..."
   rm -rf ~/.config/i3
+}
+
+function link_kak() {
+  echo $LINK_MSG "kak..."
+  mkdir -p ~/.config/kak
+  ln -s $DOTFILES/kak/kakrc ~/.config/kak/kakrc
+}
+
+function unlink_kak() {
+  echo $UNLINK_MSG "kak..."
+  rm -rf ~/.config/kak
 }
 
 function link_mc() {
@@ -206,36 +227,17 @@ function link_config {
       link_xorg
       link_zsh
       ;;
-    "bash")
-      link_bash
-      ;;
-    "git")
-      link_git
-      ;;
-    "htop")
-      link_htop
-      ;;
-    "i3")
-      link_i3
-      ;;
-    "mc")
-      link_mc
-      ;;
-    "tmux")
-      link_tmux
-      ;;
-    "vim")
-      link_vim
-      ;;
-    "weechat")
-      link_weechat
-      ;;
-    "xorg")
-      link_xorg
-      ;;
-    "zsh")
-      link_zsh
-      ;;
+    "bash") link_bash ;;
+    "git") link_git ;;
+    "htop") link_htop ;;
+    "i3") link_i3 ;;
+    "kak") link_kak ;;
+    "mc") link_mc ;;
+    "tmux") link_tmux ;;
+    "vim") link_vim ;;
+    "weechat") link_weechat ;;
+    "xorg") link_xorg ;;
+    "zsh") link_zsh ;;
   esac
 }
 
@@ -253,36 +255,17 @@ function unlink_config {
       unlink_xorg
       unlink_zsh
       ;;
-    "bash")
-      unlink_bash
-      ;;
-    "git")
-      unlink_git
-      ;;
-    "htop")
-      unlink_htop
-      ;;
-    "i3")
-      unlink_i3
-      ;;
-    "mc")
-      unlink_mc
-      ;;
-    "tmux")
-      unlink_tmux
-      ;;
-    "vim")
-      unlink_vim
-      ;;
-    "weechat")
-      unlink_weechat
-      ;;
-    "xorg")
-      unlink_xorg
-      ;;
-    "zsh")
-      unlink_zsh
-      ;;
+    "bash") unlink_bash ;;
+    "git") unlink_git ;;
+    "htop") unlink_htop ;;
+    "i3") unlink_i3 ;;
+    "kak") unlink_kak ;;
+    "mc") unlink_mc ;;
+    "tmux") unlink_tmux ;;
+    "vim") unlink_vim ;;
+    "weechat") unlink_weechat ;;
+    "xorg") unlink_xorg ;;
+    "zsh") unlink_zsh ;;
   esac
 }
 
