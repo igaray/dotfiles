@@ -1,2 +1,12 @@
-colorscheme zenburn
+colorscheme default
+
+set global tabstop 2
+set global indentwidth 2
 set global ui_options ncurses_assistant=none
+
+hook global WinCreate .* %{addhl number_lines}
+
+hook global InsertChar j %{ try %{
+  exec -draft hH <a-k>jj<ret> d
+  exec <esc>
+}}
