@@ -269,7 +269,15 @@ function unlink_config {
   esac
 }
 
+function download {
+  wget https://dl.dropboxusercontent.com/u/9332961/kttk.sh
+  wget https://dl.dropboxusercontent.com/u/9332961/hoh.sh
+}
+
 case $1 in
+  "download")
+    download
+    ;;
   "link")
     link_config $2
     ;;
