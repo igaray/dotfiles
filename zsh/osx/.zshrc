@@ -9,18 +9,18 @@ fi
 ###############################################################################
 # ENVIRONMENT VARIABLES
 
-export PATH=./:$HOME/.local/bin:$PATH
-export EDITOR=nvim
-export HISTFILE=~/.histfile
-export HISTSIZE=1000
-export SAVEHIST=1000
-export COMPLETION_WAITING_DOTS="true"
-
 # ERLANG
 . /usr/local/erlang/activate
 
 # ELIXIR
 [[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
+
+export PATH=./:$HOME/.local/bin:/usr/local/bin:$PATH
+export EDITOR=nvim
+export HISTFILE=~/.histfile
+export HISTSIZE=1000
+export SAVEHIST=1000
+export COMPLETION_WAITING_DOTS="true"
 
 ###############################################################################
 # OPTIONS
@@ -42,9 +42,9 @@ export COMPLETION_WAITING_DOTS="true"
 
 # with autocd you can type the name of the directory and it will become the
 # current directory
- setopt autocd 
- setopt extendedglob 
- setopt nomatch 
+ setopt autocd
+ setopt extendedglob
+ setopt nomatch
  setopt notify
 # correct will enable spelling correction for commands
  setopt correct
@@ -74,7 +74,7 @@ setopt prompt_subst
 prompt_igaray_precmd () {
     setopt localoptions
     local exitstatus=$?
-    
+
     zstyle ':vcs_info:*' enable git svn
     zstyle ':vcs_info:*' check-for-changes true
     zstyle ':vcs_info:*' stagedstr   '+'
@@ -85,7 +85,7 @@ prompt_igaray_precmd () {
     } else {
         zstyle ':vcs_info:*' formats "%b%c%u*"
     }
-    
+
     vcs_info
     psvar=()
     [[ $exitstatus -ge 128 ]] && psvar[1]="$signals[$exitstatus-127]" || psvar[1]=""
@@ -96,7 +96,7 @@ prompt_igaray_setup () {
     local -a pcc
     local -A pc
     local p_date p_tty p_plat p_ver p_userpwd p_apm p_shlvlhist p_rc p_end p_win
-    
+
     # Defines default prompt color codes in an array
     # cyan green yellow white
     pcc[1]=${1:-${${SSH_CLIENT+'yellow'}:-'red'}}
@@ -104,7 +104,7 @@ prompt_igaray_setup () {
     pcc[3]=${3:-'blue'}
     pcc[4]=${4:-'green'}
     pcc[5]=${5:-'yellow'}
-    
+
     # Defines default prompt commands in an array.
     pc['bo']="%F{$pcc[1]}[%f"
     pc['bc']="%F{$pcc[1]}]%f"
@@ -112,18 +112,18 @@ prompt_igaray_setup () {
     pc['ac']="%F{$pcc[1]}>%f"
     pc['po']="%F{$pcc[1]}(%f"
     pc['pc']="%F{$pcc[1]})%f"
-    
+
     # Defines the different parts of the prompt.
     p_user="$pc['bo']%F{$pcc[4]}%n@%m$pc['bc']:"
     p_pwd="$pc['bo']%F{$pcc[3]}%~$pc['bc']"
     p_vcs="$pc['bo']%(2v.%U%2v%u.)$pc['bc']"
     p_time="$pc['bo']%F{$pcc[2]}%D{%R}$pc['bc']"
     p_end="%B%#%b "
-    
+
     prompt="$p_time$p_pwd$p_vcs
 $p_end"
     PS2='%(4_.\.)%3_> %E'
-    
+
     add-zsh-hook precmd prompt_igaray_precmd
 }
  prompt_igaray_setup "$@"
@@ -176,13 +176,13 @@ function yellow() {
 # Jump Marks
 
 export MARKPATH=$HOME/.marks
-function jump { 
+function jump {
     cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
 }
-function mark { 
+function mark {
     mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
 }
-function unmark { 
+function unmark {
     rm -i "$MARKPATH/$1"
 }
 function marks {
@@ -192,14 +192,14 @@ function marks {
 #------------------------------------------------------------------------------#
 # Fix Permissions & Ownership.
 #
-# The script will recursively list all directories and files within the first argument 
-# and call 'chmod 770' if it is a directory and 'chmod 660' otherwise, 
+# The script will recursively list all directories and files within the first argument
+# and call 'chmod 770' if it is a directory and 'chmod 660' otherwise,
 # and change the ownership to username.groupname of all directory contents.
 
 function fixperm {
     dir=${1:-"."}
     sudo find "$dir" | while read file
-    do 
+    do
         if [ -d "$file" ]
             then sudo chmod 770 "$file"
             else sudo chmod 660 "$file"
