@@ -32,15 +32,15 @@ function link_bash() {
   echo $LINK_MSG "bash..."
 
   if [[ $OS == "linux" ]]; then
-    ln -s "$DOTFILES/bash/linux/.bashrc" ~/.bashrc
-    ln -s "$DOTFILES/bash/linux/.bash_logout" ~/.bash_logout
-    ln -s "$DOTFILES/bash/linux/.bash_profile" ~/.bash_profile
+    ln "$DOTFILES/bash/linux/.bashrc" ~/.bashrc
+    ln "$DOTFILES/bash/linux/.bash_logout" ~/.bash_logout
+    ln "$DOTFILES/bash/linux/.bash_profile" ~/.bash_profile
   fi
 
   if [[ $OS == "darwin" ]]; then
-    ln -s "$DOTFILES/bash/osx/.bashrc" ~/.bashrc
-    ln -s "$DOTFILES/bash/osx/.bash_logout" ~/.bash_logout
-    ln -s "$DOTFILES/bash/osx/.bash_profile" ~/.bash_profile
+    ln "$DOTFILES/bash/osx/.bashrc" ~/.bashrc
+    ln "$DOTFILES/bash/osx/.bash_logout" ~/.bash_logout
+    ln "$DOTFILES/bash/osx/.bash_profile" ~/.bash_profile
   fi
 }
 
@@ -53,8 +53,8 @@ function unlink_bash() {
 
 function link_git() {
   echo $LINK_MSG "git..."
-  ln -s "$DOTFILES/git/.gitconfig" ~/.gitconfig
-  ln -s "$DOTFILES/git/.gitignore_global" ~/.gitignore_global
+  ln "$DOTFILES/git/.gitconfig" ~/.gitconfig
+  ln "$DOTFILES/git/.gitignore_global" ~/.gitignore_global
 }
 
 function unlink_git() {
@@ -65,7 +65,7 @@ function unlink_git() {
 
 function link_emacs() {
   echo $LINK_MSG "emacs..."
-  ln -s "$DOTFILES/emacs/.emacs.d" ~/.emacs.d
+  ln "$DOTFILES/emacs/.emacs.d" ~/.emacs.d
 }
 
 function unlink_emacs() {
@@ -76,7 +76,7 @@ function unlink_emacs() {
 function link_htop() {
   echo $LINK_MSG "htop..."
   mkdir -p ~/.config/htop
-  ln -s "$DOTFILES/htop/htoprc" ~/.config/htop/htoprc
+  ln "$DOTFILES/htop/htoprc" ~/.config/htop/htoprc
 }
 
 function unlink_htop() {
@@ -87,7 +87,7 @@ function unlink_htop() {
 function link_i3() {
   echo $LINK_MSG "i3..."
   mkdir -p ~/.config/i3
-  ln -s "$DOTFILES/i3/config" ~/.config/i3/config
+  ln "$DOTFILES/i3/config" ~/.config/i3/config
 }
 
 function unlink_i3() {
@@ -98,7 +98,7 @@ function unlink_i3() {
 function link_kak() {
   echo $LINK_MSG "kak..."
   mkdir -p ~/.config/kak
-  ln -s "$DOTFILES/kak/kakrc" ~/.config/kak/kakrc
+  ln "$DOTFILES/kak/kakrc" ~/.config/kak/kakrc
 }
 
 function unlink_kak() {
@@ -109,10 +109,10 @@ function unlink_kak() {
 function link_mc() {
   echo $LINK_MSG "mc..."
   mkdir -p ~/.config/mc
-  ln -s "$DOTFILES/mc/ini" ~/.config/mc/ini
-  ln -s "$DOTFILES/mc/mc.ext" ~/.config/mc/mc.ext
-  ln -s "$DOTFILES/mc/mc.keymap" ~/.config/mc/mc.keymap
-  ln -s "$DOTFILES/mc/skins" ~/.config/mc/skins
+  ln "$DOTFILES/mc/ini" ~/.config/mc/ini
+  ln "$DOTFILES/mc/mc.ext" ~/.config/mc/mc.ext
+  ln "$DOTFILES/mc/mc.keymap" ~/.config/mc/mc.keymap
+  ln "$DOTFILES/mc/skins" ~/.config/mc/skins
 }
 
 function unlink_mc() {
@@ -122,7 +122,7 @@ function unlink_mc() {
 
 function link_tmux() {
   echo $LINK_MSG "tmux..."
-  ln -s "$DOTFILES/tmux/.tmux.conf" ~/.tmux.conf
+  ln "$DOTFILES/tmux/.tmux.conf" ~/.tmux.conf
 }
 
 function unlink_tmux() {
@@ -133,9 +133,9 @@ function unlink_tmux() {
 function link_vim() {
   echo $LINK_MSG "vim..."
   mkdir -p ~/.vim/{backupdir,recoverydir,undodir}
-  ln -s "$DOTFILES/vim/.vimrc" ~/.vimrc
-  ln -s "$DOTFILES/vim/.vim/autoload" ~/.vim/autoload
-  ln -s "$DOTFILES/vim/.vim/bundle" ~/.vim/bundle
+  ln "$DOTFILES/vim/.vimrc" ~/.vimrc
+  ln "$DOTFILES/vim/.vim/autoload" ~/.vim/autoload
+  ln "$DOTFILES/vim/.vim/bundle" ~/.vim/bundle
 }
 
 function unlink_vim() {
@@ -147,23 +147,23 @@ function unlink_vim() {
 function link_weechat() {
   echo $LINK_MSG "weechat..."
   mkdir -p ~/.weechat
-  ln -s "$DOTFILES/weechat/alias.conf" ~/.weechat/alias.conf
-  ln -s "$DOTFILES/weechat/aspell.conf" ~/.weechat/aspell.conf
-  ln -s "$DOTFILES/weechat/charset.conf" ~/.weechat/charset.conf
-  ln -s "$DOTFILES/weechat/exec.conf" ~/.weechat/exec.conf
-  ln -s "$DOTFILES/weechat/irc.conf" ~/.weechat/irc.conf
-  ln -s "$DOTFILES/weechat/logger.conf" ~/.weechat/logger.conf
-  ln -s "$DOTFILES/weechat/plugins.conf" ~/.weechat/plugins.conf
-  ln -s "$DOTFILES/weechat/relay.conf" ~/.weechat/relay.conf
-  ln -s "$DOTFILES/weechat/rmodifier.conf" ~/.weechat/rmodifier.conf
-  ln -s "$DOTFILES/weechat/script.conf" ~/.weechat/script.conf
-  ln -s "$DOTFILES/weechat/sec.conf" ~/.weechat/sec.conf
-  ln -s "$DOTFILES/weechat/trigger.conf" ~/.weechat/trigger.conf
-  ln -s "$DOTFILES/weechat/weechat.conf" ~/.weechat/weechat.conf
-  ln -s "$DOTFILES/weechat/xfer.conf" ~/.weechat/xfer.conf
-  ln -s "$DOTFILES/weechat/perl" ~/.weechat/perl
-  ln -s "$DOTFILES/weechat/script" ~/.weechat/script
-  ln -s "$DOTFILES/weechat/ssl" ~/.weechat/ssl
+  ln "$DOTFILES/weechat/alias.conf" ~/.weechat/alias.conf
+  ln "$DOTFILES/weechat/aspell.conf" ~/.weechat/aspell.conf
+  ln "$DOTFILES/weechat/charset.conf" ~/.weechat/charset.conf
+  ln "$DOTFILES/weechat/exec.conf" ~/.weechat/exec.conf
+  ln "$DOTFILES/weechat/irc.conf" ~/.weechat/irc.conf
+  ln "$DOTFILES/weechat/logger.conf" ~/.weechat/logger.conf
+  ln "$DOTFILES/weechat/plugins.conf" ~/.weechat/plugins.conf
+  ln "$DOTFILES/weechat/relay.conf" ~/.weechat/relay.conf
+  ln "$DOTFILES/weechat/rmodifier.conf" ~/.weechat/rmodifier.conf
+  ln "$DOTFILES/weechat/script.conf" ~/.weechat/script.conf
+  ln "$DOTFILES/weechat/sec.conf" ~/.weechat/sec.conf
+  ln "$DOTFILES/weechat/trigger.conf" ~/.weechat/trigger.conf
+  ln "$DOTFILES/weechat/weechat.conf" ~/.weechat/weechat.conf
+  ln "$DOTFILES/weechat/xfer.conf" ~/.weechat/xfer.conf
+  ln "$DOTFILES/weechat/perl" ~/.weechat/perl
+  ln "$DOTFILES/weechat/script" ~/.weechat/script
+  ln "$DOTFILES/weechat/ssl" ~/.weechat/ssl
 }
 
 function unlink_weechat() {
@@ -174,8 +174,8 @@ function unlink_weechat() {
 function link_xorg() {
   if [[ $OS == "linux" ]]; then
     echo $LINK_MSG "xorg..."
-    ln -s "$DOTFILES/xorg/.Xdefaults" ~/.Xdefaults
-    ln -s "$DOTFILES/xorg/.xinitrc" ~/.xinitrc
+    ln "$DOTFILES/xorg/.Xdefaults" ~/.Xdefaults
+    ln "$DOTFILES/xorg/.xinitrc" ~/.xinitrc
   fi
 }
 
@@ -191,17 +191,17 @@ function link_zsh() {
   echo $LINK_MSG "zsh..."
 
   if [[ $OS == "linux" ]]; then
-    ln -s "$DOTFILES/zsh/linux/.zlogout" ~/.zlogout
-    ln -s "$DOTFILES/zsh/linux/.zprofile" ~/.zprofile
-    ln -s "$DOTFILES/zsh/linux/.zshenv" ~/.zshenv
-    ln -s "$DOTFILES/zsh/linux/.zshrc" ~/.zshrc
+    ln "$DOTFILES/zsh/linux/.zlogout" ~/.zlogout
+    ln "$DOTFILES/zsh/linux/.zprofile" ~/.zprofile
+    ln "$DOTFILES/zsh/linux/.zshenv" ~/.zshenv
+    ln "$DOTFILES/zsh/linux/.zshrc" ~/.zshrc
   fi
 
   if [[ $OS == "darwin" ]]; then
-    ln -s "$DOTFILES/zsh/osx/.zlogout" ~/.zlogout
-    ln -s "$DOTFILES/zsh/osx/.zprofile" ~/.zprofile
-    ln -s "$DOTFILES/zsh/osx/.zshenv" ~/.zshenv
-    ln -s "$DOTFILES/zsh/osx/.zshrc" ~/.zshrc
+    ln "$DOTFILES/zsh/osx/.zlogout" ~/.zlogout
+    ln "$DOTFILES/zsh/osx/.zprofile" ~/.zprofile
+    ln "$DOTFILES/zsh/osx/.zshenv" ~/.zshenv
+    ln "$DOTFILES/zsh/osx/.zshrc" ~/.zshrc
   fi
 }
 
