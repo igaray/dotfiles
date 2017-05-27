@@ -25,7 +25,7 @@ function usage() {
   echo "    ./dotfiles.sh unlink TARGET"
   echo ""
   echo "TARGET may be one of:"
-  echo "    all | bash | git | emacs | htop | i3 | kak | mc | tmux | vim | weechat | xorg"
+  echo "    all | bash | git | emacs | htop | i3 | kak | mc | nvim | tmux | vim | weechat | xorg"
 }
 
 function link_bash() {
@@ -112,12 +112,24 @@ function link_mc() {
   ln "$DOTFILES/mc/ini" ~/.config/mc/ini
   ln "$DOTFILES/mc/mc.ext" ~/.config/mc/mc.ext
   ln "$DOTFILES/mc/mc.keymap" ~/.config/mc/mc.keymap
-  ln "$DOTFILES/mc/skins" ~/.config/mc/skins
+  ln -s "$DOTFILES/mc/skins" ~/.config/mc/skins
 }
 
 function unlink_mc() {
   echo $UNLINK_MSG "mc..."
   rm -rf ~/.config/mc
+}
+
+function link_nvim() {
+  echo $LINK_MSG "nvim..."
+  mkdir -p ~/.config/nvim/{autoload,plugged}
+  ln "$DOTFILES/nvim/init.vim" ~/.config/nvim/init.vim
+  ln "$DOTFILES/nvim/autoload/plug.vim" ~/.config/nvim/autoload/plug.vim
+}
+
+function unlink_nvim() {
+  echo $UNLINK_MSG "nvim..."
+  rm -f ~/.config/nvim
 }
 
 function link_tmux() {
@@ -134,8 +146,8 @@ function link_vim() {
   echo $LINK_MSG "vim..."
   mkdir -p ~/.vim/{backupdir,recoverydir,undodir}
   ln "$DOTFILES/vim/.vimrc" ~/.vimrc
-  ln "$DOTFILES/vim/.vim/autoload" ~/.vim/autoload
-  ln "$DOTFILES/vim/.vim/bundle" ~/.vim/bundle
+  ln -s "$DOTFILES/vim/.vim/autoload" ~/.vim/autoload
+  ln -s "$DOTFILES/vim/.vim/bundle" ~/.vim/bundle
 }
 
 function unlink_vim() {
@@ -161,9 +173,9 @@ function link_weechat() {
   ln "$DOTFILES/weechat/trigger.conf" ~/.weechat/trigger.conf
   ln "$DOTFILES/weechat/weechat.conf" ~/.weechat/weechat.conf
   ln "$DOTFILES/weechat/xfer.conf" ~/.weechat/xfer.conf
-  ln "$DOTFILES/weechat/perl" ~/.weechat/perl
-  ln "$DOTFILES/weechat/script" ~/.weechat/script
-  ln "$DOTFILES/weechat/ssl" ~/.weechat/ssl
+  ln -s "$DOTFILES/weechat/perl" ~/.weechat/perl
+  ln -s "$DOTFILES/weechat/script" ~/.weechat/script
+  ln -s "$DOTFILES/weechat/ssl" ~/.weechat/ssl
 }
 
 function unlink_weechat() {
@@ -221,6 +233,7 @@ function link_config {
       link_htop
       link_i3
       link_mc
+      link_nvim
       link_tmux
       link_vim
       link_weechat
@@ -233,6 +246,7 @@ function link_config {
     "i3") link_i3 ;;
     "kak") link_kak ;;
     "mc") link_mc ;;
+    "nvim") link_nvim ;;
     "tmux") link_tmux ;;
     "vim") link_vim ;;
     "weechat") link_weechat ;;
@@ -249,6 +263,7 @@ function unlink_config {
       unlink_htop
       unlink_i3
       unlink_mc
+      unlink_nvim
       unlink_tmux
       unlink_vim
       unlink_weechat
@@ -261,6 +276,7 @@ function unlink_config {
     "i3") unlink_i3 ;;
     "kak") unlink_kak ;;
     "mc") unlink_mc ;;
+    "nvim") unlink_nvim ;;
     "tmux") unlink_tmux ;;
     "vim") unlink_vim ;;
     "weechat") unlink_weechat ;;
