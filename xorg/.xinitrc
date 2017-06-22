@@ -1,26 +1,26 @@
 #!/bin/bash
 
 # Turn off the motherfucking bell.
- xset -b
+#xset -b
 
 # Set font directory
- xset +fp /usr/share/fonts/local
- xset +fp /home/igaray/.config/awesome/fonts
- xset fp rehash
+#xset +fp /usr/share/fonts/local
+#xset +fp /home/igaray/.config/awesome/fonts
+#xset fp rehash
 
 # Enable restart X
- setxkbmap -option terminate:ctrl_alt_bksp &
+#setxkbmap -option terminate:ctrl_alt_bksp &
 
 # Swap left control and capslock keys to avoid emacs pinky.
- xmodmap -e "remove lock = Caps_Lock"
- xmodmap -e "add control = Caps_Lock"
- xmodmap -e "remove control = Control_L"
- xmodmap -e "add lock = Control_L"
- setxkbmap -option ctrl:swapcaps
- setxkbmap latam
+#xmodmap -e "remove lock = Caps_Lock"
+#xmodmap -e "add control = Caps_Lock"
+#xmodmap -e "remove control = Control_L"
+#xmodmap -e "add lock = Control_L"
+#setxkbmap -option ctrl:swapcaps
+#setxkbmap latam
 
- xrandr --output LVDS1 --mode 1280x800
- xrandr --output VGA1  --mode 1920x1080
+#xrandr --output LVDS1 --mode 1280x800
+#xrandr --output VGA1  --mode 1920x1080
 #xrandr --output VGA1  --right-of LVDS1
 
 #while true;
@@ -31,14 +31,15 @@
 #        sleep 5m
 #    done
 #done &
- hsetroot -full /home/igaray/Dropbox/system/wallpapers/wallpaper.jpg
+#hsetroot -full /home/igaray/Dropbox/system/wallpapers/wallpaper.jpg
 
- wmname LG3D
+#wmname LG3D
 
 #urxvtd -q -o -f &
 
- exec awesome
+#exec awesome
 #exec dwm
 #exec startlxde
 #exec gnome-session
 #exec gnome-session-cinnamon
+ exec i3

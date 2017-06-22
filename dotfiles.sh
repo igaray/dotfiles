@@ -21,30 +21,26 @@ UNLINK_MSG="Unlinking config files for"
 function usage() {
   echo "Usage:"
   echo "    ./dotfiles.sh help"
-  echo "    ./dotfiles.sh deps OS"
   echo "    ./dotfiles.sh link TARGET"
   echo "    ./dotfiles.sh unlink TARGET"
   echo ""
-  echo "OS may be one of: "
-  echo "    arch | debian | void | darwin"
-  echo ""
   echo "TARGET may be one of:"
-  echo "    all | bash | git | htop | mc | tmux | vim | weechat | xorg"
+  echo "    all | bash | git | emacs | htop | i3 | kak | mc | nvim | tmux | vim | weechat | xorg"
 }
 
 function link_bash() {
   echo $LINK_MSG "bash..."
 
   if [[ $OS == "linux" ]]; then
-    ln -s $DOTFILES/bash/linux/.bashrc ~/.bashrc
-    ln -s $DOTFILES/bash/linux/.bash_logout ~/.bash_logout
-    ln -s $DOTFILES/bash/linux/.bash_profile ~/.bash_profile
+    ln "$DOTFILES/bash/linux/.bashrc" ~/.bashrc
+    ln "$DOTFILES/bash/linux/.bash_logout" ~/.bash_logout
+    ln "$DOTFILES/bash/linux/.bash_profile" ~/.bash_profile
   fi
 
   if [[ $OS == "darwin" ]]; then
-    ln -s $DOTFILES/bash/osx/.bashrc ~/.bashrc
-    ln -s $DOTFILES/bash/osx/.bash_logout ~/.bash_logout
-    ln -s $DOTFILES/bash/osx/.bash_profile ~/.bash_profile
+    ln "$DOTFILES/bash/osx/.bashrc" ~/.bashrc
+    ln "$DOTFILES/bash/osx/.bash_logout" ~/.bash_logout
+    ln "$DOTFILES/bash/osx/.bash_profile" ~/.bash_profile
   fi
 }
 
@@ -57,8 +53,8 @@ function unlink_bash() {
 
 function link_git() {
   echo $LINK_MSG "git..."
-  ln -s $DOTFILES/git/.gitconfig ~/.gitconfig
-  ln -s $DOTFILES/git/.gitignore_global ~/.gitignore_global
+  ln "$DOTFILES/git/.gitconfig" ~/.gitconfig
+  ln "$DOTFILES/git/.gitignore_global" ~/.gitignore_global
 }
 
 function unlink_git() {
@@ -67,10 +63,20 @@ function unlink_git() {
   rm -f ~/.gitignore_global
 }
 
+function link_emacs() {
+  echo $LINK_MSG "emacs..."
+  ln -s "$DOTFILES/emacs/.emacs.d" ~/.emacs.d
+}
+
+function unlink_emacs() {
+  echo $UNLINK_MSG "emacs..."
+  rm -rf ~/.emacs.d
+}
+
 function link_htop() {
   echo $LINK_MSG "htop..."
   mkdir -p ~/.config/htop
-  ln -s $DOTFILES/htop/htoprc ~/.config/htop/htoprc
+  ln "$DOTFILES/htop/htoprc" ~/.config/htop/htoprc
 }
 
 function unlink_htop() {
@@ -78,13 +84,35 @@ function unlink_htop() {
   rm -rf ~/.config/htop
 }
 
+function link_i3() {
+  echo $LINK_MSG "i3..."
+  mkdir -p ~/.config/i3
+  ln "$DOTFILES/i3/config" ~/.config/i3/config
+}
+
+function unlink_i3() {
+  echo $UNLINK_MSG "i3..."
+  rm -rf ~/.config/i3
+}
+
+function link_kak() {
+  echo $LINK_MSG "kak..."
+  mkdir -p ~/.config/kak
+  ln "$DOTFILES/kak/kakrc" ~/.config/kak/kakrc
+}
+
+function unlink_kak() {
+  echo $UNLINK_MSG "kak..."
+  rm -rf ~/.config/kak
+}
+
 function link_mc() {
   echo $LINK_MSG "mc..."
   mkdir -p ~/.config/mc
-  ln -s $DOTFILES/mc/ini ~/.config/mc/ini
-  ln -s $DOTFILES/mc/mc.ext ~/.config/mc/mc.ext
-  ln -s $DOTFILES/mc/mc.keymap ~/.config/mc/mc.keymap
-  ln -s $DOTFILES/mc/skins ~/.config/mc/skins
+  ln "$DOTFILES/mc/ini" ~/.config/mc/ini
+  ln "$DOTFILES/mc/mc.ext" ~/.config/mc/mc.ext
+  ln "$DOTFILES/mc/mc.keymap" ~/.config/mc/mc.keymap
+  ln -s "$DOTFILES/mc/skins" ~/.config/mc/skins
 }
 
 function unlink_mc() {
@@ -92,9 +120,21 @@ function unlink_mc() {
   rm -rf ~/.config/mc
 }
 
+function link_nvim() {
+  echo $LINK_MSG "nvim..."
+  mkdir -p ~/.config/nvim/{autoload,plugged}
+  ln "$DOTFILES/nvim/init.vim" ~/.config/nvim/init.vim
+  ln "$DOTFILES/nvim/autoload/plug.vim" ~/.config/nvim/autoload/plug.vim
+}
+
+function unlink_nvim() {
+  echo $UNLINK_MSG "nvim..."
+  rm -f ~/.config/nvim
+}
+
 function link_tmux() {
   echo $LINK_MSG "tmux..."
-  ln -s $DOTFILES/tmux/.tmux.conf ~/.tmux.conf
+  ln "$DOTFILES/tmux/.tmux.conf" ~/.tmux.conf
 }
 
 function unlink_tmux() {
@@ -105,9 +145,9 @@ function unlink_tmux() {
 function link_vim() {
   echo $LINK_MSG "vim..."
   mkdir -p ~/.vim/{backupdir,recoverydir,undodir}
-  ln -s $DOTFILES/vim/.vimrc ~/.vimrc
-  ln -s $DOTFILES/vim/.vim/autoload ~/.vim/autoload
-  ln -s $DOTFILES/vim/.vim/bundle ~/.vim/bundle
+  ln "$DOTFILES/vim/.vimrc" ~/.vimrc
+  ln -s "$DOTFILES/vim/.vim/autoload" ~/.vim/autoload
+  ln -s "$DOTFILES/vim/.vim/bundle" ~/.vim/bundle
 }
 
 function unlink_vim() {
@@ -119,23 +159,23 @@ function unlink_vim() {
 function link_weechat() {
   echo $LINK_MSG "weechat..."
   mkdir -p ~/.weechat
-  ln -s $DOTFILES/weechat/alias.conf ~/.weechat/alias.conf
-  ln -s $DOTFILES/weechat/aspell.conf ~/.weechat/aspell.conf
-  ln -s $DOTFILES/weechat/charset.conf ~/.weechat/charset.conf
-  ln -s $DOTFILES/weechat/exec.conf ~/.weechat/exec.conf
-  ln -s $DOTFILES/weechat/irc.conf ~/.weechat/irc.conf
-  ln -s $DOTFILES/weechat/logger.conf ~/.weechat/logger.conf
-  ln -s $DOTFILES/weechat/plugins.conf ~/.weechat/plugins.conf
-  ln -s $DOTFILES/weechat/relay.conf ~/.weechat/relay.conf
-  ln -s $DOTFILES/weechat/rmodifier.conf ~/.weechat/rmodifier.conf
-  ln -s $DOTFILES/weechat/script.conf ~/.weechat/script.conf
-  ln -s $DOTFILES/weechat/sec.conf ~/.weechat/sec.conf
-  ln -s $DOTFILES/weechat/trigger.conf ~/.weechat/trigger.conf
-  ln -s $DOTFILES/weechat/weechat.conf ~/.weechat/weechat.conf
-  ln -s $DOTFILES/weechat/xfer.conf ~/.weechat/xfer.conf
-  ln -s $DOTFILES/weechat/perl ~/.weechat/perl
-  ln -s $DOTFILES/weechat/script ~/.weechat/script
-  ln -s $DOTFILES/weechat/ssl ~/.weechat/ssl
+  ln "$DOTFILES/weechat/alias.conf" ~/.weechat/alias.conf
+  ln "$DOTFILES/weechat/aspell.conf" ~/.weechat/aspell.conf
+  ln "$DOTFILES/weechat/charset.conf" ~/.weechat/charset.conf
+  ln "$DOTFILES/weechat/exec.conf" ~/.weechat/exec.conf
+  ln "$DOTFILES/weechat/irc.conf" ~/.weechat/irc.conf
+  ln "$DOTFILES/weechat/logger.conf" ~/.weechat/logger.conf
+  ln "$DOTFILES/weechat/plugins.conf" ~/.weechat/plugins.conf
+  ln "$DOTFILES/weechat/relay.conf" ~/.weechat/relay.conf
+  ln "$DOTFILES/weechat/rmodifier.conf" ~/.weechat/rmodifier.conf
+  ln "$DOTFILES/weechat/script.conf" ~/.weechat/script.conf
+  ln "$DOTFILES/weechat/sec.conf" ~/.weechat/sec.conf
+  ln "$DOTFILES/weechat/trigger.conf" ~/.weechat/trigger.conf
+  ln "$DOTFILES/weechat/weechat.conf" ~/.weechat/weechat.conf
+  ln "$DOTFILES/weechat/xfer.conf" ~/.weechat/xfer.conf
+  ln -s "$DOTFILES/weechat/perl" ~/.weechat/perl
+  ln -s "$DOTFILES/weechat/script" ~/.weechat/script
+  ln -s "$DOTFILES/weechat/ssl" ~/.weechat/ssl
 }
 
 function unlink_weechat() {
@@ -146,8 +186,8 @@ function unlink_weechat() {
 function link_xorg() {
   if [[ $OS == "linux" ]]; then
     echo $LINK_MSG "xorg..."
-    ln -s $DOTFILES/xorg/.Xdefaults ~/.Xdefaults
-    ln -s $DOTFILES/xorg/.xinitrc ~/.xinitrc
+    ln "$DOTFILES/xorg/.Xdefaults" ~/.Xdefaults
+    ln "$DOTFILES/xorg/.xinitrc" ~/.xinitrc
   fi
 }
 
@@ -163,17 +203,17 @@ function link_zsh() {
   echo $LINK_MSG "zsh..."
 
   if [[ $OS == "linux" ]]; then
-    ln -s $DOTFILES/zsh/linux/.zlogout ~/.zlogout
-    ln -s $DOTFILES/zsh/linux/.zprofile ~/.zprofile
-    ln -s $DOTFILES/zsh/linux/.zshenv ~/.zshenv
-    ln -s $DOTFILES/zsh/linux/.zshrc ~/.zshrc
+    ln "$DOTFILES/zsh/linux/.zlogout" ~/.zlogout
+    ln "$DOTFILES/zsh/linux/.zprofile" ~/.zprofile
+    ln "$DOTFILES/zsh/linux/.zshenv" ~/.zshenv
+    ln "$DOTFILES/zsh/linux/.zshrc" ~/.zshrc
   fi
 
   if [[ $OS == "darwin" ]]; then
-    ln -s $DOTFILES/zsh/osx/.zlogout ~/.zlogout
-    ln -s $DOTFILES/zsh/osx/.zprofile ~/.zprofile
-    ln -s $DOTFILES/zsh/osx/.zshenv ~/.zshenv
-    ln -s $DOTFILES/zsh/osx/.zshrc ~/.zshrc
+    ln "$DOTFILES/zsh/osx/.zlogout" ~/.zlogout
+    ln "$DOTFILES/zsh/osx/.zprofile" ~/.zprofile
+    ln "$DOTFILES/zsh/osx/.zshenv" ~/.zshenv
+    ln "$DOTFILES/zsh/osx/.zshrc" ~/.zshrc
   fi
 }
 
@@ -189,42 +229,35 @@ function link_config {
   case $1 in
     "all")
       link_bash
+      link_emacs
       link_git
       link_htop
+      link_i3
       link_mc
+      link_nvim
       link_tmux
       link_vim
       link_weechat
       link_xorg
       link_zsh
       ;;
-    "bash")
-      link_bash
-      ;;
-    "git")
-      link_git
-      ;;
-    "htop")
-      link_htop
-      ;;
-    "mc")
-      link_mc
-      ;;
-    "tmux")
-      link_tmux
-      ;;
-    "vim")
-      link_vim
-      ;;
-    "weechat")
-      link_weechat
-      ;;
-    "xorg")
-      link_xorg
-      ;;
-    "zsh")
-      link_zsh
-      ;;
+    "bash") link_bash ;;
+    "emacs") link_emacs ;;
+    "git") link_git ;;
+    "htop") link_htop ;;
+    "i3") link_i3 ;;
+    "kak") link_kak ;;
+    "mc") link_mc ;;
+    "nvim") link_nvim ;;
+    "tmux") link_tmux ;;
+    "vim") link_vim ;;
+    "weechat") link_weechat ;;
+    "xorg") link_xorg ;;
+    "zsh") link_zsh ;;
+    *)
+      echo "Error: unrecognized option:" $1
+      usage
+      exit 1
   esac
 }
 
@@ -232,75 +265,51 @@ function unlink_config {
   case $1 in
     "all")
       unlink_bash
+      unlink_emacs
       unlink_git
       unlink_htop
+      unlink_i3
       unlink_mc
+      unlink_nvim
       unlink_tmux
       unlink_vim
       unlink_weechat
       unlink_xorg
       unlink_zsh
       ;;
-    "bash")
-      unlink_bash
-      ;;
-    "git")
-      unlink_git
-      ;;
-    "htop")
-      unlink_htop
-      ;;
-    "mc")
-      unlink_mc
-      ;;
-    "tmux")
-      unlink_tmux
-      ;;
-    "vim")
-      unlink_vim
-      ;;
-    "weechat")
-      unlink_weechat
-      ;;
-    "xorg")
-      unlink_xorg
-      ;;
-    "zsh")
-      unlink_zsh
-      ;;
+    "bash") unlink_bash ;;
+    "emacs") unlink_emacs ;;
+    "git") unlink_git ;;
+    "htop") unlink_htop ;;
+    "i3") unlink_i3 ;;
+    "kak") unlink_kak ;;
+    "mc") unlink_mc ;;
+    "nvim") unlink_nvim ;;
+    "tmux") unlink_tmux ;;
+    "vim") unlink_vim ;;
+    "weechat") unlink_weechat ;;
+    "xorg") unlink_xorg ;;
+    "zsh") unlink_zsh ;;
+    *)
+      echo "Error: unrecognized option:" $1
+      usage
+      exit 1
   esac
 }
 
-function install_deps {
-  case $1 in
-    "arch")
-      echo "Installing dependencies for" $1
-      pacman -S git gnupg htop mc pass taskwarrior tmux vim weechat zsh
-      ;;
-    "debian")
-      echo "Installing dependencies for" $1
-      apt-get install git gnupg htop mc pass taskwarrior tmux vim weechat zsh python-pip
-      pip install jrnl
-      ;;
-    "void")
-      echo "Installing dependencies for" $1
-      xbps install git gnupg htop mc pass taskwarrior tmux vim weechat zsh
-      ;;
-    "darwin")
-      echo "Installing dependencies for" $1
-      brew install git gnupg htop mc pass task tmux vim weechat zsh
-      ;;
-    *)
-      echo "Error! Unrecognized option:" $1
-      echo ""
-      usage
-      ;; 
-  esac
+function relink_config {
+  unlink_config $1
+  link_config $1
+}
+
+function download {
+  wget https://dl.dropboxusercontent.com/u/9332961/kttk.sh
+  wget https://dl.dropboxusercontent.com/u/9332961/hoh.sh
 }
 
 case $1 in
-  "deps")
-    install_deps $2
+  "download")
+    download
     ;;
   "link")
     link_config $2
@@ -308,8 +317,8 @@ case $1 in
   "unlink")
     unlink_config $2
     ;;
-  ""|"help")
-    usage
+  "relink")
+    relink_config $2
     ;;
   ""|"-h"|"--help"|"help")
     usage

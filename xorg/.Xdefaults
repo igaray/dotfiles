@@ -44,8 +44,8 @@ Xft.rgba:      rgb
  urxvt*borderWidth:          0
  urxvt*internalBorder:       0
 
- urxvt*font:                 -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
- urxvt*boldFont:             -*-terminus-bold-*-*-*-14-*-*-*-*-*-*-*
+!urxvt*font:                 -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
+!urxvt*boldFont:             -*-terminus-bold-*-*-*-14-*-*-*-*-*-*-*
 !urxvt*font:                 xft:DejaVu Sans Mono:pixelsize=14
 !urxvt*boldFont:             xft:DejaVu Sans Mono:pixelsize=14:bold:autohint=true
 

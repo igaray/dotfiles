@@ -1,0 +1,36 @@
+colorscheme zenburn
+
+set global aligntab false
+set global autoreload true
+set global eolformat lf
+set global grepcmd 'ag --column'
+set global incsearch false
+set global indentwidth 2
+set global scrolloff 5,5
+set global tabstop 2
+set global ui_options ncurses_assistant=none:ncurses_enable_mouse=true
+set global modelinefmt '%val{bufname} %val{cursor_line}:%val{cursor_char_column} | {{mode_info}} | {{context_info}} | %val{client}@%val{session}'
+
+# remap tab to two spaces
+map global insert <tab> '  '
+
+# find command using ag
+def find -params 1 -shell-candidates %{
+  ag --nocolor --ignore=vendor --ignore images --ignore svg --ignore fonts -g ""
+} %{ edit %arg{1} }
+alias global f find
+
+# jj to exit insert mode
+hook global InsertChar j %{ try %{
+  exec -draft hH <a-k>jj<ret> d
+  exec <esc>
+}}
+
+hook global WinCreate .* %{
+  # show number lines
+  addhl number_lines -relative -hlcursor -separator ' '
+
+  # highlight regex matches in red
+  addhl show_matching
+  addhl regex '\h+$' 0:default,red
+}
