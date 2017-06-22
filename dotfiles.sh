@@ -65,12 +65,12 @@ function unlink_git() {
 
 function link_emacs() {
   echo $LINK_MSG "emacs..."
-  ln "$DOTFILES/emacs/.emacs.d" ~/.emacs.d
+  ln -s "$DOTFILES/emacs/.emacs.d" ~/.emacs.d
 }
 
 function unlink_emacs() {
   echo $UNLINK_MSG "emacs..."
-  rm -f ~/.emacs.d
+  rm -rf ~/.emacs.d
 }
 
 function link_htop() {
@@ -229,6 +229,7 @@ function link_config {
   case $1 in
     "all")
       link_bash
+      link_emacs
       link_git
       link_htop
       link_i3
@@ -241,6 +242,7 @@ function link_config {
       link_zsh
       ;;
     "bash") link_bash ;;
+    "emacs") link_emacs ;;
     "git") link_git ;;
     "htop") link_htop ;;
     "i3") link_i3 ;;
@@ -252,6 +254,10 @@ function link_config {
     "weechat") link_weechat ;;
     "xorg") link_xorg ;;
     "zsh") link_zsh ;;
+    *)
+      echo "Error: unrecognized option:" $1
+      usage
+      exit 1
   esac
 }
 
@@ -259,6 +265,7 @@ function unlink_config {
   case $1 in
     "all")
       unlink_bash
+      unlink_emacs
       unlink_git
       unlink_htop
       unlink_i3
@@ -271,6 +278,7 @@ function unlink_config {
       unlink_zsh
       ;;
     "bash") unlink_bash ;;
+    "emacs") unlink_emacs ;;
     "git") unlink_git ;;
     "htop") unlink_htop ;;
     "i3") unlink_i3 ;;
@@ -282,7 +290,16 @@ function unlink_config {
     "weechat") unlink_weechat ;;
     "xorg") unlink_xorg ;;
     "zsh") unlink_zsh ;;
+    *)
+      echo "Error: unrecognized option:" $1
+      usage
+      exit 1
   esac
+}
+
+function relink_config {
+  unlink_config $1
+  link_config $1
 }
 
 function download {
@@ -299,6 +316,9 @@ case $1 in
     ;;
   "unlink")
     unlink_config $2
+    ;;
+  "relink")
+    relink_config $2
     ;;
   ""|"-h"|"--help"|"help")
     usage
