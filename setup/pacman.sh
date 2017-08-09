@@ -1,70 +1,75 @@
-pacman -Syu
-pacman -S base-devel
+function base() {
+    pacman -Syu
+    pacman -S base-devel
+    pacman -S \
+        aspell \
+        clang \
+        clisp \
+        cloc \
+        cmake \
+        curl \
+        e2fsprogs \
+        ecl \
+        emacs \
+        fdupes \
+        ghc \
+        git \
+        glances \
+        gnupg \
+        guile2.0 \
+        htop \
+        hwinfo \
+        jq \
+        lua \
+        mc \
+        mlocate \
+        mosh \
+        ncdu \
+        neovim \
+        pass \
+        python-pip \
+        python2-pip \
+        r \
+        ranger \
+        ripgrep \
+        ruby \
+        sbcl \
+        swi-prolog \
+        task \
+        tcl \
+        the_silver_searcher \
+        tig \
+        tmux \
+        tree \
+        unrar \
+        unzip \
+        vim \
+        weechat \
+        wget \
+        zip \
+        zsh
 
-pacman -S virtualbox-guest-utils
+    pip install jrnl
 
-pacman -S \
-          aspell \
-          clang \
-          clisp \
-          cloc \
-          cmake \
-          curl \
-          e2fsprogs \
-          ecl \
-          emacs \
-          fdupes \
-          ghc \
-          git \
-          glances \
-          gnupg \
-          guile2.0 \
-          htop \
-          hwinfo \
-          jq \
-          lua \
-          mc \
-          mlocate \
-          mosh \
-          ncdu \
-          neovim \
-          pass \
-          python-pip \
-          python2-pip \
-          r \
-          ranger \
-          ripgrep \
-          ruby \
-          sbcl \
-          swi-prolog \
-          task \
-          tcl \
-          the_silver_searcher \
-          tig \
-          tmux \
-          tree \
-          unrar \
-          unzip \
-          vim \
-          weechat \
-          wget \
-          zip \
-          zsh
+    useradd -G users,storage,video,wheel,power -m -s /usr/bin/zsh -p askatasuna -U igaray
 
-pip install jrnl
+    mkdir sys
+    cd sys
+    wget -O hoh.sh http://bit.ly/2nYN1PP
+    git clone git@github.com:igaray/dotfiles.git
 
-# Install X
-pacman -S \
+    sudo updatedb
+}
+
+function xorg() {
+     pacman -S \
           artwiz-fonts \
           awesome \
-          chromium \
           chromium \
           concky \
           dmenu \
           dwm \
           feh \
-          feh \
-          firefox
           firefox \
           i3 \
           rxvt-unicode \
@@ -80,7 +85,21 @@ pacman -S \
           xorg-init \
           xorg-utils
 
-useradd -G users,storage,video,wheel,power -m -s /usr/bin/zsh -p askatasuna -U igaray
+}
+
+function vbox_guest() {
+     pacman -S virtualbox-guest-utils
+     VBoxClient --clipboard
+     VBoxClient --draganddrop
+     VBoxClient --seamless
+     VBoxClient --display
+     VBoxClient --checkhostversion
+}
+
+function aur() {
+     pacaur -S kakoune-git
+     pacaur -S nnn
+}
 
 # SET FRAMEBUFFER RESOLUTION
 #
@@ -103,25 +122,3 @@ useradd -G users,storage,video,wheel,power -m -s /usr/bin/zsh -p askatasuna -U i
 # persistently for all consoles
 #
 # FONT=Lat2-Terminus16
-
-# SET X CONFIG
-VBoxClient --clipboard
-VBoxClient --draganddrop
-VBoxClient --seamless
-VBoxClient --display
-VBoxClient --checkhostversion
-
-# AUR
-pacaur -S kakoune-git
-pacaur -S nnn
-
-# CONFIGURE ST
-
-# GET kttk, hoh and dotfiles
-mkdir sys
-cd sys
-wget -O kttk.sh http://bit.ly/2ju8KQ5
-wget -O hoh.sh http://bit.ly/2nYN1PP
-git clone git@github.com:igaray/dotfiles.git
-
-sudo updatedb

@@ -1,20 +1,57 @@
-xbps-install -Su
+function base() {
+    xbps-install -Su
+    xbps-install \
+        cryptsetup \
+        curl \
+        emacs \
+        exa \
+        fdupes \
+        gcc \
+        git \
+        gnupg \
+        mc \
+        mosh \
+        ncdu \
+        neovim \
+        nnn \
+        pass \
+        python \
+        python-pip \
+        python3 \
+        python3-pip \
+        task \
+        the_silver_searcher \
+        tmux \
+        tree \
+        vim \
+        weechat \
+        wget \
+        xz \
+        zsh \
 
-xbps-install -Sv dbus
-ln -s /etc/sv/dbus /var/service/
+    mkdir ~/sys
+    cd ~/sys
+    wget -O hoh.sh http://bit.ly/2nYN1PP
+    sh unpack_hoh.sh
+    ./hoh.sh install all
 
-xbps-install -Sv virtualbox-ose-guest
-ln -s /etc/sv/vboxservice /var/service/
+    cd ~/sys
+    git clone git@github.com:igaray/dotfiles.git
+}
 
-xbps-install curl wget
-xbps-install -S xorg dwm i3 i3status st dmenu
-xbps-install -S gcc
-xbps-install -S chromium firefox
+function vbox_guest() {
+    xbps-install -Sv dbus
+    ln -s /etc/sv/dbus /var/service/
 
-wget -O unpack_kttk.sh http://bit.ly/2ju8KQ5
-sh unpack_kttk.sh
-./kttk.sh install all
+    xbps-install -Sv virtualbox-ose-guest
+    ln -s /etc/sv/vboxservice /var/service/
 
-wget -O hoh.sh http://bit.ly/???????
-sh unpack_hoh.sh
-./hoh.sh install all
+}
+
+function xorg() {
+    xbps-install -S xorg dwm i3 i3status st dmenu
+    xbps-install -S chromium firefox
+
+}
+
+base()
