@@ -9,9 +9,6 @@ fi
 ###############################################################################
 # VARIABLES
 
-export PATH=./:$HOME/.local/bin:$PATH
-export EDITOR=nvim
-
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -137,7 +134,6 @@ prompt_igaray_setup () {
     local p_date p_tty p_plat p_ver p_userpwd p_apm p_shlvlhist p_rc p_end p_win
     
     # Defines default prompt color codes in an array
-    # cyan green yellow white
     pcc[1]=${1:-${${SSH_CLIENT+'yellow'}:-'red'}}
     pcc[2]=${2:-'white'}
     pcc[3]=${3:-'blue'}
@@ -154,7 +150,7 @@ prompt_igaray_setup () {
     
     # Defines the different parts of the prompt.
     p_user="$pc['bo']%F{$pcc[4]}%n@%m$pc['bc']:"
-    p_pwd="$pc['bo']%F{$pcc[3]}%~$pc['bc']"
+    p_pwd="$pc['bo']%F{$pcc[2]}%~$pc['bc']"
     p_vcs="$pc['bo']%(2v.%U%2v%u.)$pc['bc']"
     p_time="$pc['bo']%F{$pcc[2]}%D{%R}$pc['bc']"
     p_end="%B%#%b "
@@ -346,13 +342,6 @@ function cpp() {
          END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
 }
 
-###############################################################################
-# MOTD
-
-echo Pride is not the opposite of shame, but its source.
-echo True humility is the only antidote to shame.
-
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
-
 

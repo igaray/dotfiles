@@ -1,6 +1,8 @@
 
 # set environment variables (important for autologin on tty)
 export HOSTNAME=${HOSTNAME:-$(hostname)}
+export PATH=./:$HOME/.local/bin:$PATH
+export EDITOR=nvim
 
 # make sure /usr/bin/id is available
 if [[ -x /usr/bin/id ]] ; then
