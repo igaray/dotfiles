@@ -14,7 +14,7 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 " APPEARANCE
-"colorscheme zenburn
+ colorscheme zenburn
  set number
  set colorcolumn=80,100
  set list

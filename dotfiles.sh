@@ -129,7 +129,7 @@ function link_nvim() {
 
 function unlink_nvim() {
   echo $UNLINK_MSG "nvim..."
-  rm -f ~/.config/nvim
+  rm -rf ~/.config/nvim
 }
 
 function link_tmux() {

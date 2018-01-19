@@ -10,7 +10,7 @@ fi
 # ENVIRONMENT VARIABLES
 
 # ERLANG
-. /usr/local/erlang/activate
+. ~/bin/erlang/20.0/activate
 
 # ELIXIR
 [[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
