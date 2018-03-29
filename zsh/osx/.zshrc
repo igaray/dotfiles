@@ -10,11 +10,22 @@ fi
 # ENVIRONMENT VARIABLES
 
 # ERLANG
-. ~/bin/erlang/20.0/activate
+. ~/.local/bin/erlang/19.3/activate
 
 # ELIXIR
 [[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
 
+# RUST
+source $HOME/.cargo/env
+
+# PYTHON
+export WORKON_HOME=~/Projects/virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+source /usr/local/bin/virtualenvwrapper.sh
+
+# GENERAL
 export PATH=./:$HOME/.local/bin:/usr/local/bin:$PATH
 export EDITOR=nvim
 export HISTFILE=~/.histfile
@@ -22,6 +33,11 @@ export HISTSIZE=1000
 export SAVEHIST=1000
 export COMPLETION_WAITING_DOTS="true"
 
+# ADROLL
+export MAYA_SETTINGS=development_settings.py
+export CPPFLAGS=-I/usr/local/opt/openssl/include
+export LDFLAGS=-L/usr/local/opt/openssl/lib
+ 
 ###############################################################################
 # OPTIONS
 
