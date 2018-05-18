@@ -20,17 +20,16 @@ def find -params 1 -shell-candidates %{
 } %{ edit %arg{1} }
 alias global f find
 
+# show number lines
+addhl global/ number_lines -relative -hlcursor -separator ' '
+
 # jj to exit insert mode
 hook global InsertChar j %{ try %{
   exec -draft hH <a-k>jj<ret> d
   exec <esc>
 }}
 
-hook global WinCreate .* %{
-  # show number lines
-  addhl number_lines -relative -hlcursor -separator ' '
+# highlight regex matches in red
+# addhl show_matching
+# addhl regex '\h+$' 0:default,red
 
-  # highlight regex matches in red
-  addhl show_matching
-  addhl regex '\h+$' 0:default,red
-}

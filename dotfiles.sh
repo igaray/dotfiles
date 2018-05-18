@@ -217,7 +217,7 @@ function link_zsh() {
   fi
 }
 
-function unlink_zsh {
+function unlink_zsh() {
   echo $UNLINK_MSG "zsh..."
   rm -f ~/.zlogout
   rm -f ~/.zprofile
@@ -225,7 +225,7 @@ function unlink_zsh {
   rm -f ~/.zshrc
 }
 
-function link_config {
+function link_config() {
   case $1 in
     "all")
       link_bash
@@ -261,7 +261,7 @@ function link_config {
   esac
 }
 
-function unlink_config {
+function unlink_config() {
   case $1 in
     "all")
       unlink_bash
@@ -297,12 +297,12 @@ function unlink_config {
   esac
 }
 
-function relink_config {
+function relink_config() {
   unlink_config $1
   link_config $1
 }
 
-function download {
+function download() {
   wget https://dl.dropboxusercontent.com/u/9332961/kttk.sh
   wget https://dl.dropboxusercontent.com/u/9332961/hoh.sh
 }

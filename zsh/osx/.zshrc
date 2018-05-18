@@ -9,6 +9,8 @@ fi
 ###############################################################################
 # ENVIRONMENT VARIABLES
 
+export LC_ALL=en_US.UTF-8
+
 # ERLANG
 . ~/.local/bin/erlang/19.3/activate
 
@@ -19,7 +21,10 @@ fi
 source $HOME/.cargo/env
 
 # PYTHON
-export WORKON_HOME=~/Projects/virtualenvs
+eval "$(pyenv init -)"
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+export WORKON_HOME=~/projects/virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
@@ -37,7 +42,7 @@ export COMPLETION_WAITING_DOTS="true"
 export MAYA_SETTINGS=development_settings.py
 export CPPFLAGS=-I/usr/local/opt/openssl/include
 export LDFLAGS=-L/usr/local/opt/openssl/lib
- 
+
 ###############################################################################
 # OPTIONS
 
