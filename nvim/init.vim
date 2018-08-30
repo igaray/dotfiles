@@ -1,20 +1,22 @@
 " PLUG
 call plug#begin('~/.config/nvim/plugged')
- Plug 'https://github.com/altercation/vim-colors-solarized.git'
- Plug 'https://github.com/scrooloose/nerdtree.git'
- Plug 'https://github.com/airblade/vim-gitgutter.git'
+ Plug 'prabirshrestha/async.vim'
+ Plug 'prabirshrestha/vim-lsp'
  Plug 'https://github.com/jnurmine/Zenburn.git'
- Plug 'https://github.com/tpope/vim-unimpaired.git'
- Plug 'https://github.com/tpope/vim-fugitive.git'
- Plug 'https://github.com/tpope/vim-markdown.git'
- Plug 'https://github.com/terryma/vim-multiple-cursors.git'
+"Plug 'https://github.com/scrooloose/nerdtree.git'
+"Plug 'https://github.com/altercation/vim-colors-solarized.git'
+"Plug 'https://github.com/airblade/vim-gitgutter.git'
+"Plug 'https://github.com/tpope/vim-unimpaired.git'
+"Plug 'https://github.com/tpope/vim-fugitive.git'
+"Plug 'https://github.com/tpope/vim-markdown.git'
+"Plug 'https://github.com/terryma/vim-multiple-cursors.git'
 "Plug 'https://github.com/wincent/command-t.git'
 "Plug 'https://github.com/itchyny/lightline.vim.git'
 "Plug 'https://github.com/Valloric/YouCompleteMe.git'
 call plug#end()
 
 " APPEARANCE
-"colorscheme zenburn
+ colorscheme zenburn
  set number
  set colorcolumn=80,100
  set list
@@ -63,3 +65,12 @@ set number
  nmap <leader>n :NERDTreeToggle<CR>
  nmap <leader>j :NERDTreeFind<CR>
 
+ " PYTHON LANGUAGE SERVER
+ if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
