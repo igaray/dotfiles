@@ -21,14 +21,14 @@ export LC_ALL=en_US.UTF-8
 source $HOME/.cargo/env
 
 # PYTHON
-eval "$(pyenv init -)"
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-
-export WORKON_HOME=~/projects/virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-source /usr/local/bin/virtualenvwrapper.sh
+# eval "$(pyenv init -)"
+# if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+# 
+# export WORKON_HOME=~/projects/virtualenvs
+# export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+# export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+# source /usr/local/bin/virtualenvwrapper.sh
 
 # GENERAL
 export PATH=./:$HOME/.local/bin:/usr/local/bin:$PATH
