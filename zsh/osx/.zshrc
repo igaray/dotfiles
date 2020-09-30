@@ -11,8 +11,11 @@ fi
 
 export LC_ALL=en_US.UTF-8
 
+# ZSH
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # ERLANG
-. ~/.local/bin/erlang/19.3/activate
+. ~/.local/bin/erlang/22.2/activate
 
 # ELIXIR
 [[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
@@ -31,17 +34,14 @@ source $HOME/.cargo/env
 # source /usr/local/bin/virtualenvwrapper.sh
 
 # GENERAL
-export PATH=./:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=./:$PATH
 export EDITOR=nvim
 export HISTFILE=~/.histfile
 export HISTSIZE=1000
 export SAVEHIST=1000
 export COMPLETION_WAITING_DOTS="true"
-
-# ADROLL
-export MAYA_SETTINGS=development_settings.py
-export CPPFLAGS=-I/usr/local/opt/openssl/include
-export LDFLAGS=-L/usr/local/opt/openssl/lib
 
 ###############################################################################
 # OPTIONS
@@ -259,3 +259,4 @@ echo True humility is the only antidote to shame.
 
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
