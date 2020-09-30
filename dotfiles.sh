@@ -53,14 +53,18 @@ function unlink_bash() {
 
 function link_git() {
   echo $LINK_MSG "git..."
+  mkdir -p ~/.local/bin
   ln "$DOTFILES/git/.gitconfig" ~/.gitconfig
   ln "$DOTFILES/git/.gitignore_global" ~/.gitignore_global
+  ln "$DOTFILES/git/diff-so-fancy" ~/.local/bin
+  chmod +x ~/.local/bin/diff-so-fancy
 }
 
 function unlink_git() {
   echo $UNLINK_MSG "git..."
   rm -f ~/.gitconfig
   rm -f ~/.gitignore_global
+  rm -f ~/.local/bin/diff-so-fancy
 }
 
 function link_emacs() {
