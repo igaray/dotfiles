@@ -322,25 +322,29 @@ editor_stop_format_chars=-+*\\,.;:&>
 
 editor_state_full_filename=false
 
+safe_overwrite=false
+
+shadows=true
+
 [Layout]
-message_visible=0
-keybar_visible=0
-xterm_title=0
+message_visible=false
+keybar_visible=false
+xterm_title=false
 output_lines=0
-command_prompt=0
-menubar_visible=0
+command_prompt=false
+menubar_visible=false
 show_mini_info=1
 permission_mode=1
 filetype_mode=1
 
-free_space=1
+free_space=true
 
 classic_progressbar=true
 
-horizontal_split=0
-vertical_equal=1
-left_panel_size=90
-horizontal_equal=1
+horizontal_split=false
+vertical_equal=true
+left_panel_size=40
+horizontal_equal=true
 top_panel_size=24
 
 
