@@ -15,10 +15,10 @@ export LC_ALL=en_US.UTF-8
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # ERLANG
-. ~/.local/bin/erlang/22.2/activate
+# . ~/.local/bin/erlang/22.2/activate
 
 # ELIXIR
-[[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
+# [[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
 
 # RUST
 source $HOME/.cargo/env
@@ -34,6 +34,8 @@ source $HOME/.cargo/env
 # source /usr/local/bin/virtualenvwrapper.sh
 
 # GENERAL
+# export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export PATH=$HOME/Library/Python/3.9/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=./:$PATH
@@ -152,16 +154,17 @@ $p_end"
 ###############################################################################
 # ALIAS
 
-alias           ..='cd ..'
-alias           ls='ls -G'
-alias           la='ls -G -A'
-alias           ll='ls -G -l -h'
-alias           l1='ls -1'
-alias           lr="tree -Csu"
-alias           nv="nvim"
-alias           ss='du -s * | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
-alias      weechat='weechat-curses'
-alias filenamedate='date +"%Y_%m_%d_%H_%M"'
+#alias           ..='cd ..'
+#alias           ls='ls -G'
+#alias           la='ls -G -A'
+#alias           ll='ls -G -l -h'
+#alias           l1='ls -1'
+#alias           lr="tree -Csu"
+#alias           nv="nvim"
+#alias           ss='du -s * | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
+#alias      weechat='weechat-curses'
+#alias filenamedate='date +"%Y_%m_%d_%H_%M"'
+#alias pyserver='python3 -m http.server 8000 --bind 127.0.0.1'
 
 ###############################################################################
 # FUNCTIONS
@@ -259,4 +262,3 @@ echo True humility is the only antidote to shame.
 
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
