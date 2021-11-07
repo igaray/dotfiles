@@ -15,26 +15,29 @@ export LC_ALL=en_US.UTF-8
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # ERLANG
-# . ~/.local/bin/erlang/22.2/activate
+. /Users/igaray/.local/bin/erlang/23.3.4/activate
 
 # ELIXIR
-# [[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+source $HOME/.kiex/elixirs/elixir-1.11.4.env
 
 # RUST
 source $HOME/.cargo/env
 
 # PYTHON
-# eval "$(pyenv init -)"
-# if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-# 
-# export WORKON_HOME=~/projects/virtualenvs
-# export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
-# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-# export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-# source /usr/local/bin/virtualenvwrapper.sh
+
+# GOOGLE CLOUD SDK
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/igaray/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/igaray/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/igaray/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/igaray/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 # GENERAL
-# export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export PATH=$HOME/Library/Python/3.9/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -83,75 +86,6 @@ export COMPLETION_WAITING_DOTS="true"
  setopt append_history
 
 ###############################################################################
-# THEME
-
-# load vcs info and colors for prompt
-autoload -Uz vcs_info
-autoload -U colors && colors
-setopt prompt_subst
-
-# prompt theme
- autoload -U promptinit
- promptinit
-
-prompt_igaray_precmd () {
-    setopt localoptions
-    local exitstatus=$?
-
-    zstyle ':vcs_info:*' enable git svn
-    zstyle ':vcs_info:*' check-for-changes true
-    zstyle ':vcs_info:*' stagedstr   '+'
-    zstyle ':vcs_info:*' unstagedstr '-'
-    zstyle ':vcs_info:*' formats '%F{red}[%f %b%u%c %F{red]%f'
-    if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
-        zstyle ':vcs_info:*' formats "%b%c%u"
-    } else {
-        zstyle ':vcs_info:*' formats "%b%c%u*"
-    }
-
-    vcs_info
-    psvar=()
-    [[ $exitstatus -ge 128 ]] && psvar[1]="$signals[$exitstatus-127]" || psvar[1]=""
-    [[ -n $vcs_info_msg_0_ ]] && psvar[2]="$vcs_info_msg_0_"
-}
-
-prompt_igaray_setup () {
-    local -a pcc
-    local -A pc
-    local p_date p_tty p_plat p_ver p_userpwd p_apm p_shlvlhist p_rc p_end p_win
-
-    # Defines default prompt color codes in an array
-    # cyan green yellow white
-    pcc[1]=${1:-${${SSH_CLIENT+'yellow'}:-'red'}}
-    pcc[2]=${2:-'white'}
-    pcc[3]=${3:-'blue'}
-    pcc[4]=${4:-'green'}
-    pcc[5]=${5:-'yellow'}
-
-    # Defines default prompt commands in an array.
-    pc['bo']="%F{$pcc[1]}[%f"
-    pc['bc']="%F{$pcc[1]}]%f"
-    pc['ao']="%F{$pcc[1]}<%f"
-    pc['ac']="%F{$pcc[1]}>%f"
-    pc['po']="%F{$pcc[1]}(%f"
-    pc['pc']="%F{$pcc[1]})%f"
-
-    # Defines the different parts of the prompt.
-    p_user="$pc['bo']%F{$pcc[4]}%n@%m$pc['bc']:"
-    p_pwd="$pc['bo']%F{$pcc[3]}%~$pc['bc']"
-    p_vcs="$pc['bo']%(2v.%U%2v%u.)$pc['bc']"
-    p_time="$pc['bo']%F{$pcc[2]}%D{%R}$pc['bc']"
-    p_end="%B%#%b "
-
-    prompt="$p_time$p_pwd$p_vcs
-$p_end"
-    PS2='%(4_.\.)%3_> %E'
-
-    add-zsh-hook precmd prompt_igaray_precmd
-}
- prompt_igaray_setup "$@"
-
-###############################################################################
 # ALIAS
 
 #alias           ..='cd ..'
@@ -164,7 +98,8 @@ $p_end"
 #alias           ss='du -s * | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
 #alias      weechat='weechat-curses'
 #alias filenamedate='date +"%Y_%m_%d_%H_%M"'
-#alias pyserver='python3 -m http.server 8000 --bind 127.0.0.1'
+#alias     pyserver='python3 -m http.server 8000 --bind 127.0.0.1'
+ alias         uuid='uuidgen | tr " [A-Z]" " [a-z]"'
 
 ###############################################################################
 # FUNCTIONS
@@ -255,6 +190,75 @@ function cpp() {
 }
 
 ###############################################################################
+# THEME
+
+# load vcs info and colors for prompt
+autoload -Uz vcs_info
+autoload -U colors && colors
+setopt prompt_subst
+
+# prompt theme
+ autoload -U promptinit
+ promptinit
+
+prompt_igaray_precmd () {
+    setopt localoptions
+    local exitstatus=$?
+
+    zstyle ':vcs_info:*' enable git svn
+    zstyle ':vcs_info:*' check-for-changes true
+    zstyle ':vcs_info:*' stagedstr   '+'
+    zstyle ':vcs_info:*' unstagedstr '-'
+    zstyle ':vcs_info:*' formats '%F{red}[%f %b%u%c %F{red]%f'
+    if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
+        zstyle ':vcs_info:*' formats "%b%c%u"
+    } else {
+        zstyle ':vcs_info:*' formats "%b%c%u*"
+    }
+
+    vcs_info
+    psvar=()
+    [[ $exitstatus -ge 128 ]] && psvar[1]="$signals[$exitstatus-127]" || psvar[1]=""
+    [[ -n $vcs_info_msg_0_ ]] && psvar[2]="$vcs_info_msg_0_"
+}
+
+prompt_igaray_setup () {
+    local -a pcc
+    local -A pc
+    local p_date p_tty p_plat p_ver p_userpwd p_apm p_shlvlhist p_rc p_end p_win
+
+    # Defines default prompt color codes in an array
+    # cyan green yellow white
+    pcc[1]=${1:-${${SSH_CLIENT+'yellow'}:-'red'}}
+    pcc[2]=${2:-'white'}
+    pcc[3]=${3:-'blue'}
+    pcc[4]=${4:-'green'}
+    pcc[5]=${5:-'yellow'}
+
+    # Defines default prompt commands in an array.
+    pc['bo']="%F{$pcc[1]}[%f"
+    pc['bc']="%F{$pcc[1]}]%f"
+    pc['ao']="%F{$pcc[1]}<%f"
+    pc['ac']="%F{$pcc[1]}>%f"
+    pc['po']="%F{$pcc[1]}(%f"
+    pc['pc']="%F{$pcc[1]})%f"
+
+    # Defines the different parts of the prompt.
+    p_user="$pc['bo']%F{$pcc[4]}%n@%m$pc['bc']:"
+    p_pwd="$pc['bo']%F{$pcc[3]}%~$pc['bc']"
+    p_vcs="$pc['bo']%(2v.%U%2v%u.)$pc['bc']"
+    p_time="$pc['bo']%F{$pcc[2]}%D{%R}$pc['bc']"
+    p_end="%B%#%b "
+
+    prompt="$p_time$p_pwd$p_vcs
+$p_end"
+    PS2='%(4_.\.)%3_> %E'
+
+    add-zsh-hook precmd prompt_igaray_precmd
+}
+ prompt_igaray_setup "$@"
+
+###############################################################################
 # MOTD
 
 echo Pride is not the opposite of shame, but its source.
@@ -262,3 +266,5 @@ echo True humility is the only antidote to shame.
 
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
+
+
