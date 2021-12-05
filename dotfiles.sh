@@ -11,23 +11,163 @@ fi
 LINK_MSG="Linking config files for"
 UNLINK_MSG="Unlinking config files for"
 
-# DEBUG
-#echo HOME=$HOME
-#echo DOTFILES=$DOTFILES
-#echo OS=$OS
-#echo ARG1=$1
-#echo ARG2=$2
-
+#-----------------------------------------------------------------------------#
 function usage() {
   echo "Usage:"
   echo "    ./dotfiles.sh help"
+  echo "    ./dotfiles.sh setup"
   echo "    ./dotfiles.sh link TARGET"
   echo "    ./dotfiles.sh unlink TARGET"
+  echo "    ./dotfiles.sh relink TARGET"
   echo ""
   echo "TARGET may be one of:"
-  echo "    all | bash | git | emacs | htop | i3 | kak | mc | nvim | tmux | vim | weechat | xorg"
+  echo "    bash | emacs | git | htop | i3 | jrnl | kak | mc | nvim | tmux | vim | weechat | xorg | zsh"
+  echo ""
+  echo "Debug:"
+  echo " " HOME=$HOME
+  echo " " DOTFILES=$DOTFILES
+  echo " " OS=$OS
+  echo " " ARG0=$0
+  echo " " ARG1=$1
+  echo " " ARG2=$2
 }
 
+#-----------------------------------------------------------------------------#
+function setup() {
+  # if [[ $OS == "linux" ]]; then
+  # fi
+
+  if [[ $OS == "darwin" ]]; then
+    echo "Installing xcode"
+    xcode-select --install
+
+    echo "Installing brew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/igaray/.zprofile
+
+    echo "Installing CLI utilities"
+    brew install \
+      ansible \
+      coreutils \
+      csvkit \
+      curl \
+      direnv \
+      fdupes \
+      ffmpeg \
+      fzf \
+      gcc \
+      gdb \
+      git \
+      glances \
+      google-cloud-sdk \
+      htop \
+      jq \
+      jrnl \
+      jsonpp \
+      kakoune \
+      kerl \
+      midnight-commander \
+      miller \
+      ncdu \
+      neovim \
+      nnn \
+      oil \
+      pipenv \
+      rar \
+      tmux \
+      tree \
+      tree-sitter \
+      wget \
+      xz \
+      zsh \
+      zsh-autosuggestions \
+      zsh-completions \
+      zsh-syntax-highlighting
+
+    echo "Installling GUI utilities"
+    brew install --cask \
+      1password \
+      amethyst \
+      app-cleaner \
+      authy \
+      clickup \
+      cmake \
+      discord \
+      docker \
+      electrum \
+      emacs \
+      firefox \
+      google-chrome \
+      kitty \
+      mactex \
+      marta \
+      obsidian \
+      postman \
+      qbittorrent \
+      rambox \
+      simple-comic \
+      sizeup \
+      skype \
+      slack \
+      sourcetrail \
+      spotify \
+      sublime-text \
+      teamviewer \
+      telegram \
+      visual-studio-code \
+      vlc \
+      yed
+  fi
+
+  # OS independent commands
+
+  echo "Installing Erlang"
+  kerl build 23.3.4.9 23.3.4.9
+  kerl install 23.3.4.9 $HOME/.local/bin/erlang/23.3.4.9
+
+  echo "Installing Elixir"
+  \curl -sSL https://raw.githubusercontent.com/taylor/kiex/master/install | bash -s
+  kiex install 1.11.4
+  kiex use 1.11.4
+
+  # echo "Installing Python"
+
+  echo "Installing Rust"
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+  echo "Installing Rust utilities"
+  cargo install \
+    bat \
+    bottom \
+    cargo-bisect-rustc \
+    cargo-update \
+    dirscan \
+    exa \
+    fd-find \
+    fselect \
+    mdbook \
+    mdbook-katex \
+    mdbook-mermaid \
+    mdbook-linkcheck \
+    mdbook-toc \
+    nu \
+    procs \
+    ripgrep \
+    rsys \
+    sccache \
+    starship \
+    tokei \
+    xsv \
+    ytop \
+    zenith
+}
+
+function download() {
+  wget https://dl.dropboxusercontent.com/u/9332961/kttk.sh
+  wget https://dl.dropboxusercontent.com/u/9332961/hoh.sh
+}
+
+#-----------------------------------------------------------------------------#
 function link_bash() {
   echo $LINK_MSG "bash..."
 
@@ -51,6 +191,18 @@ function unlink_bash() {
   rm -f ~/.bash_profile
 }
 
+#-----------------------------------------------------------------------------#
+function link_emacs() {
+  echo $LINK_MSG "emacs..."
+  ln -s "$DOTFILES/emacs/.emacs.d" ~/.emacs.d
+}
+
+function unlink_emacs() {
+  echo $UNLINK_MSG "emacs..."
+  rm -rf ~/.emacs.d
+}
+
+#-----------------------------------------------------------------------------#
 function link_git() {
   echo $LINK_MSG "git..."
   mkdir -p ~/.local/bin
@@ -67,16 +219,7 @@ function unlink_git() {
   rm -f ~/.local/bin/diff-so-fancy
 }
 
-function link_emacs() {
-  echo $LINK_MSG "emacs..."
-  ln -s "$DOTFILES/emacs/.emacs.d" ~/.emacs.d
-}
-
-function unlink_emacs() {
-  echo $UNLINK_MSG "emacs..."
-  rm -rf ~/.emacs.d
-}
-
+#-----------------------------------------------------------------------------#
 function link_htop() {
   echo $LINK_MSG "htop..."
   mkdir -p ~/.config/htop
@@ -88,6 +231,7 @@ function unlink_htop() {
   rm -rf ~/.config/htop
 }
 
+#-----------------------------------------------------------------------------#
 function link_i3() {
   echo $LINK_MSG "i3..."
   mkdir -p ~/.config/i3
@@ -99,6 +243,19 @@ function unlink_i3() {
   rm -rf ~/.config/i3
 }
 
+#-----------------------------------------------------------------------------#
+function link_jrnl {
+  echo $LINK_MSG "jrnl..."
+  mkdir ~/.config/jrnl
+  ln "$(pwd)/jrnl/jrnl.yaml" ~/.config/jrnl/jrnl.yaml
+}
+
+function unlink_jrnl {
+  echo $UNLINK_MSG "jrnl..."
+  rm -rf ~/.config/jrnl
+}
+
+#-----------------------------------------------------------------------------#
 function link_kak() {
   echo $LINK_MSG "kak..."
   mkdir -p ~/.config/kak
@@ -110,6 +267,7 @@ function unlink_kak() {
   rm -rf ~/.config/kak
 }
 
+#-----------------------------------------------------------------------------#
 function link_mc() {
   echo $LINK_MSG "mc..."
   mkdir -p ~/.config/mc
@@ -124,6 +282,7 @@ function unlink_mc() {
   rm -rf ~/.config/mc
 }
 
+#-----------------------------------------------------------------------------#
 function link_nvim() {
   echo $LINK_MSG "nvim..."
   mkdir -p ~/.config/nvim/{autoload,plugged}
@@ -136,6 +295,7 @@ function unlink_nvim() {
   rm -rf ~/.config/nvim
 }
 
+#-----------------------------------------------------------------------------#
 function link_tmux() {
   echo $LINK_MSG "tmux..."
   ln "$DOTFILES/tmux/.tmux.conf" ~/.tmux.conf
@@ -146,6 +306,7 @@ function unlink_tmux() {
   rm -f ~/.tmux.conf
 }
 
+#-----------------------------------------------------------------------------#
 function link_vim() {
   echo $LINK_MSG "vim..."
   mkdir -p ~/.vim/{backupdir,recoverydir,undodir}
@@ -160,6 +321,7 @@ function unlink_vim() {
   rm -rf ~/.vim
 }
 
+#-----------------------------------------------------------------------------#
 function link_weechat() {
   echo $LINK_MSG "weechat..."
   mkdir -p ~/.weechat
@@ -187,6 +349,7 @@ function unlink_weechat() {
   rm -rf ~/.weechat
 }
 
+#-----------------------------------------------------------------------------#
 function link_xorg() {
   if [[ $OS == "linux" ]]; then
     echo $LINK_MSG "xorg..."
@@ -203,6 +366,7 @@ function unlink_xorg() {
   fi
 }
 
+#-----------------------------------------------------------------------------#
 function link_zsh() {
   echo $LINK_MSG "zsh..."
 
@@ -229,27 +393,15 @@ function unlink_zsh() {
   rm -f ~/.zshrc
 }
 
+#-----------------------------------------------------------------------------#
 function link_config() {
   case $1 in
-    "all")
-      link_bash
-      link_emacs
-      link_git
-      link_htop
-      link_i3
-      link_mc
-      link_nvim
-      link_tmux
-      link_vim
-      link_weechat
-      link_xorg
-      link_zsh
-      ;;
     "bash") link_bash ;;
     "emacs") link_emacs ;;
     "git") link_git ;;
     "htop") link_htop ;;
     "i3") link_i3 ;;
+    "jrnl") link_jrnl ;;
     "kak") link_kak ;;
     "mc") link_mc ;;
     "nvim") link_nvim ;;
@@ -306,14 +458,9 @@ function relink_config() {
   link_config $1
 }
 
-function download() {
-  wget https://dl.dropboxusercontent.com/u/9332961/kttk.sh
-  wget https://dl.dropboxusercontent.com/u/9332961/hoh.sh
-}
-
 case $1 in
-  "download")
-    download
+  "setup")
+    setup
     ;;
   "link")
     link_config $2
@@ -325,10 +472,10 @@ case $1 in
     relink_config $2
     ;;
   ""|"-h"|"--help"|"help")
-    usage
+    usage $1 $2
     ;;
   *)
     echo "Error: unrecognized option:" $1 "\n"
-    usage
+    usage $1 $2
     exit 1
 esac
