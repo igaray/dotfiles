@@ -84,39 +84,50 @@ function setup() {
       zsh-completions \
       zsh-syntax-highlighting
 
-    echo "Installling GUI utilities"
+    echo "Installing GUI utilities"
     brew install --cask \
       1password \
       amethyst \
       app-cleaner \
       authy \
+      calibre \
       clickup \
       cmake \
       discord \
+      disk-inventory-x \
       docker \
       electrum \
       emacs \
       firefox \
+      flux \
       google-chrome \
+      google-cloud-sdk \
       kitty \
       mactex \
       marta \
       obsidian \
       postman \
       qbittorrent \
-      rambox \
+      rar \
+      signal \
       simple-comic \
       sizeup \
       skype \
       slack \
-      sourcetrail \
       spotify \
       sublime-text \
       teamviewer \
       telegram \
       visual-studio-code \
       vlc \
-      yed
+      yed \
+      zoom \
+      zulip
+
+    # Config zsh
+    chmod -R go-w '/opt/homebrew/share/zsh'
+    chmod -R go-w '/opt/homebrew/share'
+    rm -f ~/.zcompdump; compinit
   fi
 
   # OS independent commands
@@ -137,14 +148,23 @@ function setup() {
 
   echo "Installing Rust utilities"
   cargo install \
+    bandwhich \
     bat \
     bottom \
+    cargo-binutils \
     cargo-bisect-rustc \
+    cargo-geiger \
+    cargo-tree \
     cargo-update \
     dirscan \
+    du-dust \
     exa \
     fd-find \
+    flamegraph \
     fselect \
+    git-delta \
+    grex \
+    hyperfine \
     mdbook \
     mdbook-katex \
     mdbook-mermaid \
@@ -159,7 +179,8 @@ function setup() {
     tokei \
     xsv \
     ytop \
-    zenith
+    zenith \
+    zoxide
 }
 
 function download() {

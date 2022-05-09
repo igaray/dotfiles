@@ -11,11 +11,18 @@ fi
 
 export LC_ALL=en_US.UTF-8
 
-# ZSH
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# ZSH
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # ERLANG
-. /Users/igaray/.local/bin/erlang/23.3.4/activate
+. /Users/igaray/.local/bin/erlang/23.3.4.9/activate
 
 # ELIXIR
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
