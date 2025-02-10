@@ -613,6 +613,8 @@ xterm=
 
 screen-256color=
 
+xterm-kitty=
+
 [Panels]
 kilobyte_si=true
 mix_all_files=false

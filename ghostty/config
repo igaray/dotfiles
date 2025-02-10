@@ -1,0 +1,7 @@
+background = #000000
+cursor-color = #ffffff
+cursor-invert-fg-bg = true
+cursor-style = underline
+cursor-style-blink = true
+shell-integration-features = no-cursor
+keybind = super+shift+delete=clear_screen

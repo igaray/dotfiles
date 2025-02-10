@@ -4,16 +4,41 @@
     eol = lf
     editor = vim
     excludesfile = /Users/igaray/.gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+    # pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = delta --diff-so-fancy
 [user]
     name = Iñaki Garay
     email = igarai@gmail.com
+[status]
+    short = true
+[push]
+    default = matching
+[pull]
+    rebase = true
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
+[interactive]
+    diffFilter = delta --color-only
 [color]
     branch = auto
     diff = auto
     interactive = auto
     status = auto
-	ui = true
+    ui = true
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+[color "diff"]
+    meta = yellow
+    frag = magenta bold
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
 [alias]
     st = status -uall
     br = branch
@@ -22,21 +47,7 @@
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     l1 = log --date=short --format='%C(yellow)%h %C(green)%cd %C(white)%s' -10
     undo = reset --hard HEAD~1
-[push]
-    default = matching
-[status]
-    short = true
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-[color "diff"]
-	meta = yellow
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
-[pull]
-	rebase = true
+[delta]
+    navigate = true
+    line-numbers = true
+
