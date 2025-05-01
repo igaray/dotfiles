@@ -9,6 +9,13 @@
 [user]
     name = Iñaki Garay
     email = igarai@gmail.com
+    signingkey = ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC0HPIlb5fiTq4Q86PdMwEhEh9DsK2mTdRPBISISlxQZLHTNd/K3anJ4pFY3rc1dqV996yEn/ltgd2PN83ds6yzPtYbJKYc6fDenx0O/Lo180WApe/l7LMR+PeaEHPCsMy6sSALCP/JsavtZ+wt770uX94IXxc7pwA2gMoJnXxueob7kMVD1kQgIhJS3iNVosnhVciAcPZSznpSzq/k7W9p0NxiPMp5/3pSyPr8mFQjnRihLBI0UrWtHQsurtj66W2ZY1+ZCioZIBq+kkqjeVxErJaBECkI4OsU/exumuHdRqepx77pE88EcYeUGjQ5OR/hLzc6joRRMBt3feMOlKfnpk6MOMH97q+7Lchxq68KwuZRrMwDGYPiA2Dw7CnfDBSkDrmH9zYrGodud22cl8JE36PUI1BrWxbIK4T+DjEVfOg1WPBQNY/Pn2gfaowTrlcVZ6HgdUR1AaGifjdwfNPxGWfAfH6ziXfCHDxuMD8AhHHgoH8wyOj3B526YPhVr0q3osypMEeBhBQsDXc3rUcdYRbahGB3g0tyws7nSbMBTZygRyETcH9dzsUYTJyWGm98pqe2oWhtQqbS/Rzw8OnzqD3OTIy0kO5FDhzlgXiReBpoEYgiMnb+PJnNCvYZWUqqB/K382Kgy3tdL5w3uEQnd3k/cb/15dC0O5ZVsnCArQ==
+[gpg]
+    format = ssh
+[gpg "ssh"]
+    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+    gpgsign = true
 [status]
     short = true
 [push]
