@@ -6,56 +6,44 @@ elif [[ ${os:0:5} == "linux" ]]; then
     os="linux"
 fi
 
-###############################################################################
+#------------------------------------------------------------------------------
 # ENVIRONMENT VARIABLES
 
+export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=./:$PATH
+
+export EDITOR=kak
+export HISTFILE=~/.histfile
+export HISTSIZE=1000
+export SAVEHIST=1000
+export COMPLETION_WAITING_DOTS="true"
 export LC_ALL=en_US.UTF-8
 
 # ZSH
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
   autoload -Uz compinit
   compinit
 fi
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+#------------------------------------------------------------------------------
 # ERLANG
-. /Users/igaray/.local/bin/erlang/23.3.4.9/activate
+# . /Users/igaray/.local/bin/erlang/23.3.4.9/activate
 
+#------------------------------------------------------------------------------
 # ELIXIR
-test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
-source $HOME/.kiex/elixirs/elixir-1.11.4.env
+# test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+# source $HOME/.kiex/elixirs/elixir-1.11.4.env
 
+#------------------------------------------------------------------------------
 # RUST
 source $HOME/.cargo/env
 
-# PYTHON
-
-# GOOGLE CLOUD SDK
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/igaray/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/igaray/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/igaray/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/igaray/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-# GENERAL
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-export PATH=$HOME/Library/Python/3.9/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-export PATH=./:$PATH
-export EDITOR=nvim
-export HISTFILE=~/.histfile
-export HISTSIZE=1000
-export SAVEHIST=1000
-export COMPLETION_WAITING_DOTS="true"
-
-###############################################################################
+#------------------------------------------------------------------------------
 # OPTIONS
 
 # vim-style line editing
@@ -267,11 +255,9 @@ $p_end"
 
 ###############################################################################
 # MOTD
-
 echo Pride is not the opposite of shame, but its source.
 echo True humility is the only antidote to shame.
 
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
-
 
