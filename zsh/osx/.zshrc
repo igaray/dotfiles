@@ -86,8 +86,8 @@ source $HOME/.cargo/env
 #alias           ..='cd ..'
 #alias           ls='ls -G'
 #alias           la='ls -G -A'
-#alias           ll='ls -G -l -h'
-#alias           l1='ls -1'
+ alias           ll='eza -Glh'
+ alias           l1='eza -1a'
 #alias           lr="tree -Csu"
 #alias           nv="nvim"
 #alias           ss='du -s * | sort -n | cut -f 2- | while read a; do du -hs "$a"; done'
@@ -251,7 +251,8 @@ $p_end"
 
     add-zsh-hook precmd prompt_igaray_precmd
 }
- prompt_igaray_setup "$@"
+#prompt_igaray_setup "$@"
+eval "$(starship init zsh)"
 
 ###############################################################################
 # MOTD

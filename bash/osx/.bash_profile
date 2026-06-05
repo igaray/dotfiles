@@ -3,3 +3,5 @@ export PATH=/usr/local/bin:$PATH
 export CLICOLOR=1
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+export PATH="$HOME/.elan/bin:$PATH"

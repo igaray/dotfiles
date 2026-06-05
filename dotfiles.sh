@@ -21,7 +21,7 @@ function usage() {
   echo "    ./dotfiles.sh relink TARGET"
   echo ""
   echo "TARGET may be one of:"
-  echo "    bash | emacs | git | htop | i3 | jrnl | kak | mc | nvim | tmux | vim | weechat | xorg | zsh"
+  echo "    bash | emacs | git | htop | i3 | jrnl | kak | mc | nvim | starship | tmux | vim | weechat | xorg | zsh"
   echo ""
   echo "Debug:"
   echo " " HOME=$HOME
@@ -131,7 +131,6 @@ function setup() {
   fi
 
   # OS independent commands
-
   echo "Installing Erlang"
   kerl build 23.3.4.9 23.3.4.9
   kerl install 23.3.4.9 $HOME/.local/bin/erlang/23.3.4.9
@@ -142,7 +141,6 @@ function setup() {
   kiex use 1.11.4
 
   # echo "Installing Python"
-
   echo "Installing Rust"
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
@@ -181,11 +179,6 @@ function setup() {
     ytop \
     zenith \
     zoxide
-}
-
-function download() {
-  wget https://dl.dropboxusercontent.com/u/9332961/kttk.sh
-  wget https://dl.dropboxusercontent.com/u/9332961/hoh.sh
 }
 
 #-----------------------------------------------------------------------------#
@@ -317,6 +310,17 @@ function unlink_nvim() {
 }
 
 #-----------------------------------------------------------------------------#
+function link_starship() {
+  echo $LINK_MSG "starship..."
+  ln "$DOTFILES/starship/starship.toml" ~/.config/starship.toml
+}
+
+function unlink_starship() {
+  echo $UNLINK_MSG "starship..."
+  rm -f ~/.config/starship.toml
+}
+
+#-----------------------------------------------------------------------------#
 function link_tmux() {
   echo $LINK_MSG "tmux..."
   ln "$DOTFILES/tmux/.tmux.conf" ~/.tmux.conf
@@ -426,6 +430,7 @@ function link_config() {
     "kak") link_kak ;;
     "mc") link_mc ;;
     "nvim") link_nvim ;;
+    "starship") link_starship ;;
     "tmux") link_tmux ;;
     "vim") link_vim ;;
     "weechat") link_weechat ;;
@@ -448,6 +453,7 @@ function unlink_config() {
       unlink_i3
       unlink_mc
       unlink_nvim
+      unlink_starship
       unlink_tmux
       unlink_vim
       unlink_weechat
@@ -461,6 +467,7 @@ function unlink_config() {
     "i3") unlink_i3 ;;
     "kak") unlink_kak ;;
     "mc") unlink_mc ;;
+    "starship") unlink_starship ;;
     "nvim") unlink_nvim ;;
     "tmux") unlink_tmux ;;
     "vim") unlink_vim ;;
