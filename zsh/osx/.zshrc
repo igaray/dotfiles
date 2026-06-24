@@ -95,6 +95,7 @@ source $HOME/.cargo/env
 #alias filenamedate='date +"%Y_%m_%d_%H_%M"'
 #alias     pyserver='python3 -m http.server 8000 --bind 127.0.0.1'
  alias         uuid='uuidgen | tr " [A-Z]" " [a-z]"'
+ alias        cksum='sha256sum'
 
 ###############################################################################
 # FUNCTIONS
