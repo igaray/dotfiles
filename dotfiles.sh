@@ -21,7 +21,7 @@ function usage() {
   echo "    ./dotfiles.sh relink TARGET"
   echo ""
   echo "TARGET may be one of:"
-  echo "    bash | emacs | git | htop | i3 | jrnl | kak | mc | nvim | starship | tmux | vim | weechat | xorg | zsh"
+  echo "    bash | emacs | git | helix | htop | i3 | jrnl | kak | mc | nvim | starship | tmux | vim | weechat | xorg | zsh"
   echo ""
   echo "Debug:"
   echo " " HOME=$HOME
@@ -234,6 +234,18 @@ function unlink_git() {
 }
 
 #-----------------------------------------------------------------------------#
+function link_helix() {
+  echo $LINK_MSG "helix..."
+  mkdir -p ~/.config/helix/theme
+  ln -s "$DOTFILES/helix/config.toml" ~/.config/helix/config.toml
+}
+
+function unlink_htop() {
+  echo $UNLINK_MSG "helix..."
+  rm -rf ~/.config/helix
+}
+
+#-----------------------------------------------------------------------------#
 function link_htop() {
   echo $LINK_MSG "htop..."
   mkdir -p ~/.config/htop
@@ -424,6 +436,7 @@ function link_config() {
     "bash") link_bash ;;
     "emacs") link_emacs ;;
     "git") link_git ;;
+    "helix") link_helix ;;
     "htop") link_htop ;;
     "i3") link_i3 ;;
     "jrnl") link_jrnl ;;
@@ -463,6 +476,7 @@ function unlink_config() {
     "bash") unlink_bash ;;
     "emacs") unlink_emacs ;;
     "git") unlink_git ;;
+    "helix") unlink helix ;;
     "htop") unlink_htop ;;
     "i3") unlink_i3 ;;
     "kak") unlink_kak ;;
