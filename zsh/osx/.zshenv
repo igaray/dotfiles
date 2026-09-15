@@ -1,4 +1,3 @@
-
 # set environment variables (important for autologin on tty)
 export HOSTNAME=${HOSTNAME:-$(hostname)}
 
@@ -25,3 +24,9 @@ export SAVEHIST=100000
 
 # MAKEDEV should be usable on udev as well by default:
 export WRITE_ON_UDEV=yes
+
+# Rust
+source "$HOME/.cargo/env"
+
+# Secrets
+source "$HOME/.zsecrets"
