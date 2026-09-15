@@ -412,7 +412,6 @@ function link_zsh() {
     ln "$DOTFILES/zsh/linux/.zprofile" ~/.zprofile
     ln "$DOTFILES/zsh/linux/.zshenv" ~/.zshenv
     ln "$DOTFILES/zsh/linux/.zshrc" ~/.zshrc
-    ln "$DOTFILES/zsh/linux/.zhistory" ~/.zhistory
   fi
 
   if [[ $OS == "darwin" ]]; then
@@ -420,7 +419,6 @@ function link_zsh() {
     ln "$DOTFILES/zsh/osx/.zprofile" ~/.zprofile
     ln "$DOTFILES/zsh/osx/.zshenv" ~/.zshenv
     ln "$DOTFILES/zsh/osx/.zshrc" ~/.zshrc
-    ln "$DOTFILES/zsh/osx/.zhistory" ~/.zhistory
   fi
 }
 
@@ -430,7 +428,6 @@ function unlink_zsh() {
   rm -f ~/.zprofile
   rm -f ~/.zshenv
   rm -f ~/.zshrc
-  rm -f ~/.zhistory
 }
 
 #-----------------------------------------------------------------------------#
