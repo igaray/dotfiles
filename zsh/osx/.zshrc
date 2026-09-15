@@ -138,7 +138,7 @@ alias cdproject='[ -n "$VIRTUAL_ENV" ] && cd "$(dirname "$VIRTUAL_ENV")"'
 # https://starship.rs/config/
 # https://starship.rs/presets/
 eval "$(starship init zsh)"
-fortune ~/src/dotfiles/fortune/
+fortune 50% all 50%  ~/src/dotfiles/fortune/
 
 ### END OF FILE ###############################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4

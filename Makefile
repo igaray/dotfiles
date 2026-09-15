@@ -1,4 +1,4 @@
-.PHONY fortune
+.PHONY: fortune
 
 fortune:
 	./rebuild_fortunes.sh ./fortune/
