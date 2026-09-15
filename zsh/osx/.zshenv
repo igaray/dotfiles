@@ -26,7 +26,7 @@ export SAVEHIST=100000
 export WRITE_ON_UDEV=yes
 
 # Rust
-source "$HOME/.cargo/env"
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # Secrets
-source "$HOME/.zsecrets"
+[[ -f "$HOME/.zsecrets" ]] && source "$HOME/.zsecrets"

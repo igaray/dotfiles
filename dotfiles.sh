@@ -406,6 +406,7 @@ function unlink_xorg() {
 #-----------------------------------------------------------------------------#
 function link_zsh() {
   echo $LINK_MSG "zsh..."
+  touch ~/.zsecrets
 
 if [[ $OS == "linux" ]]; then
     ln "$DOTFILES/zsh/linux/.zlogout" ~/.zlogout
