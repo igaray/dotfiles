@@ -407,7 +407,7 @@ function unlink_xorg() {
 function link_zsh() {
   echo $LINK_MSG "zsh..."
 
-  if [[ $OS == "linux" ]]; then
+if [[ $OS == "linux" ]]; then
     ln "$DOTFILES/zsh/linux/.zlogout" ~/.zlogout
     ln "$DOTFILES/zsh/linux/.zprofile" ~/.zprofile
     ln "$DOTFILES/zsh/linux/.zshenv" ~/.zshenv

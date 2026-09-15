@@ -99,7 +99,7 @@ compinit
 source $HOME/.cargo/env
 
 ### FUNCTIONS #################################################################
-source ~/.zshrc_functions
+source ~/src/dotfiles/zsh/common/.zsh_functions
 source ~/.config/broot/launcher/bash/br
 
 # BEGIN SHIPHERO --------------------------------------------------------------
@@ -121,7 +121,7 @@ alias cdproject='[ -n "$VIRTUAL_ENV" ] && cd "$(dirname "$VIRTUAL_ENV")"'
 ### THEME #####################################################################
 
 # Disabled in favor of starship
-#source ~/.zshrc_theme
+#source ~/src/dotfiles/zsh/common/.zsh_theme
 
 # load vcs info and colors for prompt
 #autoload -Uz vcs_info
